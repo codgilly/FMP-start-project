@@ -8,9 +8,12 @@ public class Movingscript : MonoBehaviour
 
     enum States
     {
-        Idle,
-        Walk,
+        IdleNA,
+        WalkNA,
         Run,
+        Idel,
+        Walk,
+        Block,
     };
 
 
@@ -29,7 +32,7 @@ public class Movingscript : MonoBehaviour
     private void Awake()
     {
 
-        state = States.Idle;
+        state = States.IdleNA;
 
 
         input = new Playercontroller();
@@ -57,14 +60,14 @@ public class Movingscript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if( state == States.Idle )
+        if( state == States.IdleNA )
         {
             Idle();
         }
 
-        if (state == States.Run)
+        if (state == States.WalkNA)
         {
-            Run();
+            WalkNO();
         }
 
         print("Current state=" + state);
@@ -87,7 +90,7 @@ public class Movingscript : MonoBehaviour
 
         if (  dir.x != 0 || dir.y != 0 )
         {
-            state = States.Run;
+            state = States.WalkNA;
         }
 
         DoBlock();
@@ -96,19 +99,33 @@ public class Movingscript : MonoBehaviour
 
     void Run()
     {
+        /*
         animator.SetBool(iswalkingnoSword, true);
 
         // check for player letting go of analogue stick
         Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
         if( dir.x == 0 && dir.y == 0 )
         {
-            state = States.Idle;
+            state = States.IdleNA;
         }
 
         DoBlock();
-
+        */
     }
 
+    void WalkNO()
+    {
+        animator.SetBool(iswalkingnoSword, true);
+
+        // check for player letting go of analogue stick
+        Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
+        if (dir.x == 0 && dir.y == 0)
+        {
+            state = States.IdleNA;
+        }
+
+        DoBlock();
+    }
 
     void DoBlock()
     {
@@ -119,7 +136,7 @@ public class Movingscript : MonoBehaviour
 
     public void BlockEnded()
     {
-        state = States.Idle;
+        state = States.IdleNA;
     }
 
 
