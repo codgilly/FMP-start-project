@@ -31,18 +31,25 @@ public class Movingscript : MonoBehaviour
     int iswalkingnoSword;
     int isrunning;
 
+    string WalkingNA;
     Playercontroller input;
 
     Vector2 currentMovemnt;
+    Vector2 cameraP;
+    Vector3 Velocity;
+    CharacterController controller;
+
     bool movementPressed;
     bool runPressed;
+
+    
 
     private void Awake()
     {
 
         state = States.IdleNA;
 
-
+        controller = GetComponent<CharacterController>();
         input = new Playercontroller();
 
       
@@ -51,7 +58,7 @@ public class Movingscript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
 
-        iswalkingnoSword = Animator.StringToHash("walkingnoSword");
+        iswalkingnoSword = Animator.StringToHash("WalkingNA");
         isrunning = Animator.StringToHash("Running");
     }
 
@@ -99,18 +106,19 @@ public class Movingscript : MonoBehaviour
 
     void IdleNA()
     {
-        animator.SetBool(iswalkingnoSword, false);
+        animator.SetBool(WalkingNA, false);
 
         // check for controller analogue stick
         Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
 
-        if (  dir.x != 0 || dir.y != 0 )
+        if (  dir.x != 0 || dir.y != 0 || Input.GetKey("space"))
         {
             state = States.WalkNA;
         }
 
-        //if(Input.)
 
+        //if( analog stick moved ) walking(): play animation left sticxk moves root allowing to spin 
+ 
         DoBlock();
 
     }
@@ -133,14 +141,23 @@ public class Movingscript : MonoBehaviour
 
     void WalkNA()
     {
-        animator.SetBool(iswalkingnoSword, true);
+        print("walking");
+
+        animator.SetBool(WalkingNA, true);
 
         // check for player letting go of analogue stick
         Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
-        if (dir.x == 0 && dir.y == 0)
+        /*if (dir.x == 0 && dir.y == 0)
         {
             state = States.IdleNA;
         }
+        */
+
+        if(Input.GetKey("q"))
+        {
+            IdleNA();
+        }
+        
 
         DoBlock();
     }

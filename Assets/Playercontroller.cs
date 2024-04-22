@@ -44,6 +44,114 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Camera"",
+                    ""type"": ""Button"",
+                    ""id"": ""acdc628f-229b-42be-acac-f531b946ed8f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Block"",
+                    ""type"": ""Button"",
+                    ""id"": ""09937be4-5368-4cae-9a51-dc8328e8adce"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Roll"",
+                    ""type"": ""Button"",
+                    ""id"": ""ec73dec1-4c05-4f43-9cf6-409f091ba865"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LightAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""1d89d53b-61f6-4688-ad6e-78f1aebb0e3e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HeavyAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""3a1c182f-bdb3-4e97-9e85-a283df63555f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Drink"",
+                    ""type"": ""Button"",
+                    ""id"": ""a0bbfbe6-7731-4756-bb42-205ce05df52b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""b32a6235-866d-482e-b267-6273a2f46cdb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpecialAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""1dd0aec6-fc2a-47ba-857e-3922db485b31"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Puase"",
+                    ""type"": ""Button"",
+                    ""id"": ""ecb9d462-f382-4945-a290-5a8f285110ac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""946ade29-18e0-4d28-a511-020569142fbf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Equip"",
+                    ""type"": ""Button"",
+                    ""id"": ""98647e45-7413-4e99-9b77-30b6088a0fda"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UnEquip"",
+                    ""type"": ""Button"",
+                    ""id"": ""eca811ba-a629-4083-a08d-64dbd9acf46b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +176,138 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8dd2f3cb-1a64-4c8a-b240-0ef142ed44bb"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f695c5f5-8abf-4795-84c8-11900ca9c902"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e22590df-5277-44bb-a83a-481f6d14c6da"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""947155da-f2f6-4977-85e7-a62dfac7c127"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LightAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""af71c8cd-e851-435e-89ef-b98e4b25279c"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HeavyAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e393aca-3ce9-4e86-90fb-4a700f3e0e1c"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drink"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""396c1cff-ecd3-4bf3-8a65-ad11818b5904"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61b58699-cf77-4979-a8f7-f4203a4d1745"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpecialAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a15e462-5f9e-4ab9-9537-445149d385f7"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Puase"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c833bd57-6c4f-4eec-a937-c5ddb2d79797"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c942f16c-23da-4206-9148-cbf5ea9c593c"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Equip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ac921ab-d4c3-4988-b485-8c077e5b857a"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UnEquip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +318,18 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
         m_Charactercontrols = asset.FindActionMap("Character controls", throwIfNotFound: true);
         m_Charactercontrols_Movement = m_Charactercontrols.FindAction("Movement", throwIfNotFound: true);
         m_Charactercontrols_Run = m_Charactercontrols.FindAction("Run", throwIfNotFound: true);
+        m_Charactercontrols_Camera = m_Charactercontrols.FindAction("Camera", throwIfNotFound: true);
+        m_Charactercontrols_Block = m_Charactercontrols.FindAction("Block", throwIfNotFound: true);
+        m_Charactercontrols_Roll = m_Charactercontrols.FindAction("Roll", throwIfNotFound: true);
+        m_Charactercontrols_LightAttack = m_Charactercontrols.FindAction("LightAttack", throwIfNotFound: true);
+        m_Charactercontrols_HeavyAttack = m_Charactercontrols.FindAction("HeavyAttack", throwIfNotFound: true);
+        m_Charactercontrols_Drink = m_Charactercontrols.FindAction("Drink", throwIfNotFound: true);
+        m_Charactercontrols_Jump = m_Charactercontrols.FindAction("Jump", throwIfNotFound: true);
+        m_Charactercontrols_SpecialAttack = m_Charactercontrols.FindAction("SpecialAttack", throwIfNotFound: true);
+        m_Charactercontrols_Puase = m_Charactercontrols.FindAction("Puase", throwIfNotFound: true);
+        m_Charactercontrols_Interact = m_Charactercontrols.FindAction("Interact", throwIfNotFound: true);
+        m_Charactercontrols_Equip = m_Charactercontrols.FindAction("Equip", throwIfNotFound: true);
+        m_Charactercontrols_UnEquip = m_Charactercontrols.FindAction("UnEquip", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -141,12 +393,36 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
     private List<ICharactercontrolsActions> m_CharactercontrolsActionsCallbackInterfaces = new List<ICharactercontrolsActions>();
     private readonly InputAction m_Charactercontrols_Movement;
     private readonly InputAction m_Charactercontrols_Run;
+    private readonly InputAction m_Charactercontrols_Camera;
+    private readonly InputAction m_Charactercontrols_Block;
+    private readonly InputAction m_Charactercontrols_Roll;
+    private readonly InputAction m_Charactercontrols_LightAttack;
+    private readonly InputAction m_Charactercontrols_HeavyAttack;
+    private readonly InputAction m_Charactercontrols_Drink;
+    private readonly InputAction m_Charactercontrols_Jump;
+    private readonly InputAction m_Charactercontrols_SpecialAttack;
+    private readonly InputAction m_Charactercontrols_Puase;
+    private readonly InputAction m_Charactercontrols_Interact;
+    private readonly InputAction m_Charactercontrols_Equip;
+    private readonly InputAction m_Charactercontrols_UnEquip;
     public struct CharactercontrolsActions
     {
         private @Playercontroller m_Wrapper;
         public CharactercontrolsActions(@Playercontroller wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Charactercontrols_Movement;
         public InputAction @Run => m_Wrapper.m_Charactercontrols_Run;
+        public InputAction @Camera => m_Wrapper.m_Charactercontrols_Camera;
+        public InputAction @Block => m_Wrapper.m_Charactercontrols_Block;
+        public InputAction @Roll => m_Wrapper.m_Charactercontrols_Roll;
+        public InputAction @LightAttack => m_Wrapper.m_Charactercontrols_LightAttack;
+        public InputAction @HeavyAttack => m_Wrapper.m_Charactercontrols_HeavyAttack;
+        public InputAction @Drink => m_Wrapper.m_Charactercontrols_Drink;
+        public InputAction @Jump => m_Wrapper.m_Charactercontrols_Jump;
+        public InputAction @SpecialAttack => m_Wrapper.m_Charactercontrols_SpecialAttack;
+        public InputAction @Puase => m_Wrapper.m_Charactercontrols_Puase;
+        public InputAction @Interact => m_Wrapper.m_Charactercontrols_Interact;
+        public InputAction @Equip => m_Wrapper.m_Charactercontrols_Equip;
+        public InputAction @UnEquip => m_Wrapper.m_Charactercontrols_UnEquip;
         public InputActionMap Get() { return m_Wrapper.m_Charactercontrols; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -162,6 +438,42 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
+            @Camera.started += instance.OnCamera;
+            @Camera.performed += instance.OnCamera;
+            @Camera.canceled += instance.OnCamera;
+            @Block.started += instance.OnBlock;
+            @Block.performed += instance.OnBlock;
+            @Block.canceled += instance.OnBlock;
+            @Roll.started += instance.OnRoll;
+            @Roll.performed += instance.OnRoll;
+            @Roll.canceled += instance.OnRoll;
+            @LightAttack.started += instance.OnLightAttack;
+            @LightAttack.performed += instance.OnLightAttack;
+            @LightAttack.canceled += instance.OnLightAttack;
+            @HeavyAttack.started += instance.OnHeavyAttack;
+            @HeavyAttack.performed += instance.OnHeavyAttack;
+            @HeavyAttack.canceled += instance.OnHeavyAttack;
+            @Drink.started += instance.OnDrink;
+            @Drink.performed += instance.OnDrink;
+            @Drink.canceled += instance.OnDrink;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
+            @SpecialAttack.started += instance.OnSpecialAttack;
+            @SpecialAttack.performed += instance.OnSpecialAttack;
+            @SpecialAttack.canceled += instance.OnSpecialAttack;
+            @Puase.started += instance.OnPuase;
+            @Puase.performed += instance.OnPuase;
+            @Puase.canceled += instance.OnPuase;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
+            @Equip.started += instance.OnEquip;
+            @Equip.performed += instance.OnEquip;
+            @Equip.canceled += instance.OnEquip;
+            @UnEquip.started += instance.OnUnEquip;
+            @UnEquip.performed += instance.OnUnEquip;
+            @UnEquip.canceled += instance.OnUnEquip;
         }
 
         private void UnregisterCallbacks(ICharactercontrolsActions instance)
@@ -172,6 +484,42 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
+            @Camera.started -= instance.OnCamera;
+            @Camera.performed -= instance.OnCamera;
+            @Camera.canceled -= instance.OnCamera;
+            @Block.started -= instance.OnBlock;
+            @Block.performed -= instance.OnBlock;
+            @Block.canceled -= instance.OnBlock;
+            @Roll.started -= instance.OnRoll;
+            @Roll.performed -= instance.OnRoll;
+            @Roll.canceled -= instance.OnRoll;
+            @LightAttack.started -= instance.OnLightAttack;
+            @LightAttack.performed -= instance.OnLightAttack;
+            @LightAttack.canceled -= instance.OnLightAttack;
+            @HeavyAttack.started -= instance.OnHeavyAttack;
+            @HeavyAttack.performed -= instance.OnHeavyAttack;
+            @HeavyAttack.canceled -= instance.OnHeavyAttack;
+            @Drink.started -= instance.OnDrink;
+            @Drink.performed -= instance.OnDrink;
+            @Drink.canceled -= instance.OnDrink;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
+            @SpecialAttack.started -= instance.OnSpecialAttack;
+            @SpecialAttack.performed -= instance.OnSpecialAttack;
+            @SpecialAttack.canceled -= instance.OnSpecialAttack;
+            @Puase.started -= instance.OnPuase;
+            @Puase.performed -= instance.OnPuase;
+            @Puase.canceled -= instance.OnPuase;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
+            @Equip.started -= instance.OnEquip;
+            @Equip.performed -= instance.OnEquip;
+            @Equip.canceled -= instance.OnEquip;
+            @UnEquip.started -= instance.OnUnEquip;
+            @UnEquip.performed -= instance.OnUnEquip;
+            @UnEquip.canceled -= instance.OnUnEquip;
         }
 
         public void RemoveCallbacks(ICharactercontrolsActions instance)
@@ -193,5 +541,17 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnCamera(InputAction.CallbackContext context);
+        void OnBlock(InputAction.CallbackContext context);
+        void OnRoll(InputAction.CallbackContext context);
+        void OnLightAttack(InputAction.CallbackContext context);
+        void OnHeavyAttack(InputAction.CallbackContext context);
+        void OnDrink(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
+        void OnSpecialAttack(InputAction.CallbackContext context);
+        void OnPuase(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnEquip(InputAction.CallbackContext context);
+        void OnUnEquip(InputAction.CallbackContext context);
     }
 }
