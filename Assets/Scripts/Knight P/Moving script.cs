@@ -72,6 +72,8 @@ public class Movingscript : MonoBehaviour
 
         //      print("v2= " + input.Charactercontrols.Movement.ReadValue<Vector2>() );
 
+
+
     }
 
     void DoLogic()
