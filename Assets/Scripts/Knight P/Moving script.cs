@@ -3,20 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+enum States
+{
+    IdleNA,
+    WalkNA,
+    Run,
+    IdelY,
+    WalkY,
+    Jump,
+    Block,
+    Roll,
+    Light,
+    Heavy,
+    Special,
+    JumpAttack,
+    Drink,
+    Equip,
+    UnEquip,
+
+};
+
 public class Movingscript : MonoBehaviour
 {
-
-    enum States
-    {
-        IdleNA,
-        WalkNA,
-        Run,
-        Idel,
-        Walk,
-        Block,
-    };
-
-
     States state;
 
     Animator animator;
@@ -37,17 +45,7 @@ public class Movingscript : MonoBehaviour
 
         input = new Playercontroller();
 
-        /*
-        input.Charactercontrols.Movement.performed += ctx =>
-        {
-            currentMovemnt = ctx.ReadValue<Vector2>();
-            movementPressed = currentMovemnt.x != 0 || currentMovemnt.y != 0;
-            print("movement pressed=" + movementPressed);
-
-        };
-        input.Charactercontrols.Run.performed += ctx => runPressed = ctx.ReadValueAsButton();
-        */
-
+      
     }
     void Start()
     {
@@ -60,18 +58,8 @@ public class Movingscript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if( state == States.IdleNA )
-        {
-            Idle();
-        }
 
-        if (state == States.WalkNA)
-        {
-            WalkNO();
-        }
-
-        print("Current state=" + state);
-
+        DoLogic();
 
         //        Movent();
 
@@ -79,9 +67,37 @@ public class Movingscript : MonoBehaviour
 
     }
 
+    void DoLogic()
+    {
+        if( state == States.IdleNA )
+        {
+            IdleNA();
+        }
 
+        if (state == States.WalkNA)
+        {
+            WalkNA();
+        }
 
-    void Idle()
+        if ( state == States.Run )
+        {
+            Run();
+        }
+
+        if( state == States.IdelY)
+        {
+            IdleY();
+        }
+
+        if(state == States.WalkY)
+        {
+            WalkY();
+        }
+
+        print("Current state=" + state);
+    }
+
+    void IdleNA()
     {
         animator.SetBool(iswalkingnoSword, false);
 
@@ -92,6 +108,8 @@ public class Movingscript : MonoBehaviour
         {
             state = States.WalkNA;
         }
+
+        //if(Input.)
 
         DoBlock();
 
@@ -113,7 +131,7 @@ public class Movingscript : MonoBehaviour
         */
     }
 
-    void WalkNO()
+    void WalkNA()
     {
         animator.SetBool(iswalkingnoSword, true);
 
@@ -127,6 +145,21 @@ public class Movingscript : MonoBehaviour
         DoBlock();
     }
 
+    void IdleY()
+    {
+
+    }
+
+    void WalkY()
+    {
+
+    }
+
+    void Jump()
+    {
+
+    }
+        
     void DoBlock()
     {
         // add code to perform block with L1
@@ -139,15 +172,42 @@ public class Movingscript : MonoBehaviour
         state = States.IdleNA;
     }
 
+    void roll()
+    {
 
+    }
 
+    void Light()
+    {
 
+    }
 
+    void Heavy()
+    {
 
+    }
 
+    void Special()
+    {
 
+    }
 
+    void JumpAttack()
+    {
 
+    }
+
+    void Equip()
+    {
+
+    }
+
+    void UnEquip()
+    {
+
+    }
+
+    /*
     void Movement()
     {
         bool walkingnoSword = animator.GetBool(iswalkingnoSword);
@@ -174,6 +234,7 @@ public class Movingscript : MonoBehaviour
         }
 
     }
+    */
 
     private void OnEnable()
     {
