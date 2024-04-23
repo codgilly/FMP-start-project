@@ -45,7 +45,7 @@ public class Movingscript : MonoBehaviour
     bool movementPressed;
     bool runPressed;
 
-            Vector2 rotate;
+    Vector3 rotate;
       
 
     private void Awake()
@@ -194,10 +194,6 @@ public class Movingscript : MonoBehaviour
         //input.Charactercontrols.Jump.performed += ctx => ctx.ReadValueAsButton();
         
 
-
-        
-
-
         //if( analog stick moved ) walking(): play animation left sticxk moves root allowing to spin 
  
         //DoBlock();
@@ -217,7 +213,7 @@ public class Movingscript : MonoBehaviour
 
         input.Charactercontrols.Movement.performed += ctx => rotate = ctx.ReadValue<Vector2>();
 
-        Vector2 r = new Vector2 (rotate.y, rotate.x) * 100 * Time.deltaTime;
+        Vector3 r = new Vector3 (rotate.z, rotate.x) * 100 * Time.deltaTime;
         transform.Rotate(r, Space.World);
 
         if (dir.x == 0 && dir.y == 0)

@@ -42,7 +42,7 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
                     ""id"": ""f51652ef-72ed-4d23-8667-7497d5b949ff"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=0.1)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -109,7 +109,7 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SpecialAttack"",
+                    ""name"": ""Scream"",
                     ""type"": ""Button"",
                     ""id"": ""1dd0aec6-fc2a-47ba-857e-3922db485b31"",
                     ""expectedControlType"": ""Button"",
@@ -148,6 +148,51 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
                     ""name"": ""UnEquip"",
                     ""type"": ""Button"",
                     ""id"": ""eca811ba-a629-4083-a08d-64dbd9acf46b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LockOn"",
+                    ""type"": ""Button"",
+                    ""id"": ""e7b52dee-3dab-41fa-b53a-defb47ff0a89"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""menuUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""3caa5d67-9b34-49fc-a599-e7d1d007ad9b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MenuLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""45f0dd67-f8c9-48a8-b2a3-519e1ea28fb7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MenuRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""2179d827-d0df-4fe7-89d7-06b8289bbd73"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MenuDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""a661487e-3268-4906-9daf-dcd7b4eaf3f6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -261,7 +306,7 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SpecialAttack"",
+                    ""action"": ""Scream"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -308,6 +353,61 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
                     ""action"": ""UnEquip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""008f33ac-393e-4b63-9fa6-8657fa950443"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LockOn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""300f4635-d558-4e80-8ed9-a53a89ecb059"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""menuUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fd5dc997-14ae-478c-aa5e-0adea2f394b2"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MenuLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51d3575b-2070-4f27-88d1-d6f28f01b558"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MenuRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4f9fe317-b531-45b0-b5c2-8f69dfa43f31"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MenuDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -325,11 +425,16 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
         m_Charactercontrols_HeavyAttack = m_Charactercontrols.FindAction("HeavyAttack", throwIfNotFound: true);
         m_Charactercontrols_Drink = m_Charactercontrols.FindAction("Drink", throwIfNotFound: true);
         m_Charactercontrols_Jump = m_Charactercontrols.FindAction("Jump", throwIfNotFound: true);
-        m_Charactercontrols_SpecialAttack = m_Charactercontrols.FindAction("SpecialAttack", throwIfNotFound: true);
+        m_Charactercontrols_Scream = m_Charactercontrols.FindAction("Scream", throwIfNotFound: true);
         m_Charactercontrols_Puase = m_Charactercontrols.FindAction("Puase", throwIfNotFound: true);
         m_Charactercontrols_Interact = m_Charactercontrols.FindAction("Interact", throwIfNotFound: true);
         m_Charactercontrols_Equip = m_Charactercontrols.FindAction("Equip", throwIfNotFound: true);
         m_Charactercontrols_UnEquip = m_Charactercontrols.FindAction("UnEquip", throwIfNotFound: true);
+        m_Charactercontrols_LockOn = m_Charactercontrols.FindAction("LockOn", throwIfNotFound: true);
+        m_Charactercontrols_menuUp = m_Charactercontrols.FindAction("menuUp", throwIfNotFound: true);
+        m_Charactercontrols_MenuLeft = m_Charactercontrols.FindAction("MenuLeft", throwIfNotFound: true);
+        m_Charactercontrols_MenuRight = m_Charactercontrols.FindAction("MenuRight", throwIfNotFound: true);
+        m_Charactercontrols_MenuDown = m_Charactercontrols.FindAction("MenuDown", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -400,11 +505,16 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
     private readonly InputAction m_Charactercontrols_HeavyAttack;
     private readonly InputAction m_Charactercontrols_Drink;
     private readonly InputAction m_Charactercontrols_Jump;
-    private readonly InputAction m_Charactercontrols_SpecialAttack;
+    private readonly InputAction m_Charactercontrols_Scream;
     private readonly InputAction m_Charactercontrols_Puase;
     private readonly InputAction m_Charactercontrols_Interact;
     private readonly InputAction m_Charactercontrols_Equip;
     private readonly InputAction m_Charactercontrols_UnEquip;
+    private readonly InputAction m_Charactercontrols_LockOn;
+    private readonly InputAction m_Charactercontrols_menuUp;
+    private readonly InputAction m_Charactercontrols_MenuLeft;
+    private readonly InputAction m_Charactercontrols_MenuRight;
+    private readonly InputAction m_Charactercontrols_MenuDown;
     public struct CharactercontrolsActions
     {
         private @Playercontroller m_Wrapper;
@@ -418,11 +528,16 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
         public InputAction @HeavyAttack => m_Wrapper.m_Charactercontrols_HeavyAttack;
         public InputAction @Drink => m_Wrapper.m_Charactercontrols_Drink;
         public InputAction @Jump => m_Wrapper.m_Charactercontrols_Jump;
-        public InputAction @SpecialAttack => m_Wrapper.m_Charactercontrols_SpecialAttack;
+        public InputAction @Scream => m_Wrapper.m_Charactercontrols_Scream;
         public InputAction @Puase => m_Wrapper.m_Charactercontrols_Puase;
         public InputAction @Interact => m_Wrapper.m_Charactercontrols_Interact;
         public InputAction @Equip => m_Wrapper.m_Charactercontrols_Equip;
         public InputAction @UnEquip => m_Wrapper.m_Charactercontrols_UnEquip;
+        public InputAction @LockOn => m_Wrapper.m_Charactercontrols_LockOn;
+        public InputAction @menuUp => m_Wrapper.m_Charactercontrols_menuUp;
+        public InputAction @MenuLeft => m_Wrapper.m_Charactercontrols_MenuLeft;
+        public InputAction @MenuRight => m_Wrapper.m_Charactercontrols_MenuRight;
+        public InputAction @MenuDown => m_Wrapper.m_Charactercontrols_MenuDown;
         public InputActionMap Get() { return m_Wrapper.m_Charactercontrols; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -459,9 +574,9 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @SpecialAttack.started += instance.OnSpecialAttack;
-            @SpecialAttack.performed += instance.OnSpecialAttack;
-            @SpecialAttack.canceled += instance.OnSpecialAttack;
+            @Scream.started += instance.OnScream;
+            @Scream.performed += instance.OnScream;
+            @Scream.canceled += instance.OnScream;
             @Puase.started += instance.OnPuase;
             @Puase.performed += instance.OnPuase;
             @Puase.canceled += instance.OnPuase;
@@ -474,6 +589,21 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
             @UnEquip.started += instance.OnUnEquip;
             @UnEquip.performed += instance.OnUnEquip;
             @UnEquip.canceled += instance.OnUnEquip;
+            @LockOn.started += instance.OnLockOn;
+            @LockOn.performed += instance.OnLockOn;
+            @LockOn.canceled += instance.OnLockOn;
+            @menuUp.started += instance.OnMenuUp;
+            @menuUp.performed += instance.OnMenuUp;
+            @menuUp.canceled += instance.OnMenuUp;
+            @MenuLeft.started += instance.OnMenuLeft;
+            @MenuLeft.performed += instance.OnMenuLeft;
+            @MenuLeft.canceled += instance.OnMenuLeft;
+            @MenuRight.started += instance.OnMenuRight;
+            @MenuRight.performed += instance.OnMenuRight;
+            @MenuRight.canceled += instance.OnMenuRight;
+            @MenuDown.started += instance.OnMenuDown;
+            @MenuDown.performed += instance.OnMenuDown;
+            @MenuDown.canceled += instance.OnMenuDown;
         }
 
         private void UnregisterCallbacks(ICharactercontrolsActions instance)
@@ -505,9 +635,9 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @SpecialAttack.started -= instance.OnSpecialAttack;
-            @SpecialAttack.performed -= instance.OnSpecialAttack;
-            @SpecialAttack.canceled -= instance.OnSpecialAttack;
+            @Scream.started -= instance.OnScream;
+            @Scream.performed -= instance.OnScream;
+            @Scream.canceled -= instance.OnScream;
             @Puase.started -= instance.OnPuase;
             @Puase.performed -= instance.OnPuase;
             @Puase.canceled -= instance.OnPuase;
@@ -520,6 +650,21 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
             @UnEquip.started -= instance.OnUnEquip;
             @UnEquip.performed -= instance.OnUnEquip;
             @UnEquip.canceled -= instance.OnUnEquip;
+            @LockOn.started -= instance.OnLockOn;
+            @LockOn.performed -= instance.OnLockOn;
+            @LockOn.canceled -= instance.OnLockOn;
+            @menuUp.started -= instance.OnMenuUp;
+            @menuUp.performed -= instance.OnMenuUp;
+            @menuUp.canceled -= instance.OnMenuUp;
+            @MenuLeft.started -= instance.OnMenuLeft;
+            @MenuLeft.performed -= instance.OnMenuLeft;
+            @MenuLeft.canceled -= instance.OnMenuLeft;
+            @MenuRight.started -= instance.OnMenuRight;
+            @MenuRight.performed -= instance.OnMenuRight;
+            @MenuRight.canceled -= instance.OnMenuRight;
+            @MenuDown.started -= instance.OnMenuDown;
+            @MenuDown.performed -= instance.OnMenuDown;
+            @MenuDown.canceled -= instance.OnMenuDown;
         }
 
         public void RemoveCallbacks(ICharactercontrolsActions instance)
@@ -548,10 +693,15 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
         void OnHeavyAttack(InputAction.CallbackContext context);
         void OnDrink(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnSpecialAttack(InputAction.CallbackContext context);
+        void OnScream(InputAction.CallbackContext context);
         void OnPuase(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnEquip(InputAction.CallbackContext context);
         void OnUnEquip(InputAction.CallbackContext context);
+        void OnLockOn(InputAction.CallbackContext context);
+        void OnMenuUp(InputAction.CallbackContext context);
+        void OnMenuLeft(InputAction.CallbackContext context);
+        void OnMenuRight(InputAction.CallbackContext context);
+        void OnMenuDown(InputAction.CallbackContext context);
     }
 }
