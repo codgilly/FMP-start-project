@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Android.Gradle;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -33,7 +34,7 @@ public class Movingscript : MonoBehaviour
     int iswalkingnoSword;
     int isrunning;
 
-    string WalkingNA;
+    
     Playercontroller input;
 
     Vector2 currentMovemnt;
@@ -44,7 +45,8 @@ public class Movingscript : MonoBehaviour
     bool movementPressed;
     bool runPressed;
 
-    
+            Vector2 rotate;
+      
 
     private void Awake()
     {
@@ -53,7 +55,7 @@ public class Movingscript : MonoBehaviour
 
         input = new Playercontroller();
 
-      
+
     }
     void Start()
     {
@@ -79,9 +81,13 @@ public class Movingscript : MonoBehaviour
 
     void DoLogic()
     {
-        if( state == States.IdleNA )
+        switch( state )
         {
-            IdleNA();
+            case States.IdleNA:
+                IdleNA();
+            break;
+
+                
         }
 
         if (state == States.WalkNA)
@@ -111,57 +117,57 @@ public class Movingscript : MonoBehaviour
 
         if (state == States.Jump)
         {
-
+            Jump();
         }
 
         if(state == States.Block)
         {
-
+            DoBlock();
         }
 
         if(state == States.Roll)
         {
-
+            Roll();
         }
 
         if(state == States.Light)
         {
-
+            Light();
         }
 
         if(state == States.Heavy)
         {
-
+            Heavy();
         }
 
         if(state == States.Scream)
         {
-
+            Scream();
         }
 
         if(state == States.JumpAttack)
         {
-
+            JumpAttack();  
         }
 
         if(state == States.Drink)
         {
-
+            Drink();
         }
 
         if(state == States.Rest)
         {
-
+            Rest();
         }
 
         if(state == States.Equip)
         {
-
+            Equip();
         }
 
         if(state == States.UnEquip)
         {
-
+            UnEquip();
         }
 
         print("Current state=" + state);
@@ -171,7 +177,10 @@ public class Movingscript : MonoBehaviour
     {
 
         print("idelNA");
-        animator.SetBool(WalkingNA, false);
+        animator.SetBool("walkingNA", false);
+
+
+        //check for walk
 
         // check for controller analogue stick
         Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
@@ -179,55 +188,54 @@ public class Movingscript : MonoBehaviour
         if (  dir.x != 0 || dir.y != 0 || Input.GetKey("space"))
         {
             state = States.WalkNA;
+            animator.SetBool("walkingNA", true);
         }
+
+        //input.Charactercontrols.Jump.performed += ctx => ctx.ReadValueAsButton();
+        
+
+
+        
 
 
         //if( analog stick moved ) walking(): play animation left sticxk moves root allowing to spin 
  
-        DoBlock();
+        //DoBlock();
 
     }
 
-    void RunNA()
-    {
-        /*
-        animator.SetBool(iswalkingnoSword, true);
-
-        // check for player letting go of analogue stick
-        Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
-        if( dir.x == 0 && dir.y == 0 )
-        {
-            state = States.IdleNA;
-        }
-
-        DoBlock();
-        */
-    }
-
+   
     void WalkNA()
     {
         
         print("walking");
 
-        animator.SetBool(WalkingNA, true);
+        
 
         // check for player letting go of analogue stick
         Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
+
+        input.Charactercontrols.Movement.performed += ctx => rotate = ctx.ReadValue<Vector2>();
+
+        Vector2 r = new Vector2 (rotate.y, rotate.x) * 100 * Time.deltaTime;
+        transform.Rotate(r, Space.World);
+
         if (dir.x == 0 && dir.y == 0)
         {
+            //this is an exit, set up what the player needs to do when chaning states
             state = States.IdleNA;
+            animator.SetBool("walkingNA", false);
         }
         
 
-        if(Input.GetKey("q"))
-        {
-            IdleNA();
-        }
-        
-
-        DoBlock();
+        //DoBlock();
 
     }
+    void RunNA()
+    {
+        
+    }
+
 
     void IdleY()
     {
@@ -270,9 +278,9 @@ public class Movingscript : MonoBehaviour
         state = States.IdleNA;
     }
 
-    void roll()
+    void Roll()
     {
-
+        
     }
 
     void Light()
@@ -285,7 +293,22 @@ public class Movingscript : MonoBehaviour
 
     }
 
+    void Scream()
+    {
+
+    }
+
     void JumpAttack()
+    {
+
+    }
+
+    void Drink()
+    {
+
+    }
+
+    void Rest()
     {
 
     }
