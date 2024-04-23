@@ -7,17 +7,19 @@ enum States
 {
     IdleNA,
     WalkNA,
-    Run,
+    RunNA,
     IdelY,
     WalkY,
+    RunY,
     Jump,
     Block,
     Roll,
     Light,
     Heavy,
-    Special,
+    Scream,
     JumpAttack,
     Drink,
+    Rest,
     Equip,
     UnEquip,
 
@@ -37,7 +39,7 @@ public class Movingscript : MonoBehaviour
     Vector2 currentMovemnt;
     Vector2 cameraP;
     Vector3 Velocity;
-    CharacterController controller;
+
 
     bool movementPressed;
     bool runPressed;
@@ -49,7 +51,6 @@ public class Movingscript : MonoBehaviour
 
         state = States.IdleNA;
 
-        controller = GetComponent<CharacterController>();
         input = new Playercontroller();
 
       
@@ -88,9 +89,9 @@ public class Movingscript : MonoBehaviour
             WalkNA();
         }
 
-        if ( state == States.Run )
+        if ( state == States.RunNA )
         {
-            Run();
+            RunNA();
         }
 
         if( state == States.IdelY)
@@ -103,11 +104,73 @@ public class Movingscript : MonoBehaviour
             WalkY();
         }
 
+        if (state == States.RunY)
+        {
+            RunY();
+        }
+
+        if (state == States.Jump)
+        {
+
+        }
+
+        if(state == States.Block)
+        {
+
+        }
+
+        if(state == States.Roll)
+        {
+
+        }
+
+        if(state == States.Light)
+        {
+
+        }
+
+        if(state == States.Heavy)
+        {
+
+        }
+
+        if(state == States.Scream)
+        {
+
+        }
+
+        if(state == States.JumpAttack)
+        {
+
+        }
+
+        if(state == States.Drink)
+        {
+
+        }
+
+        if(state == States.Rest)
+        {
+
+        }
+
+        if(state == States.Equip)
+        {
+
+        }
+
+        if(state == States.UnEquip)
+        {
+
+        }
+
         print("Current state=" + state);
     }
 
     void IdleNA()
     {
+
+        print("idelNA");
         animator.SetBool(WalkingNA, false);
 
         // check for controller analogue stick
@@ -125,7 +188,7 @@ public class Movingscript : MonoBehaviour
 
     }
 
-    void Run()
+    void RunNA()
     {
         /*
         animator.SetBool(iswalkingnoSword, true);
@@ -143,17 +206,18 @@ public class Movingscript : MonoBehaviour
 
     void WalkNA()
     {
+        
         print("walking");
 
         animator.SetBool(WalkingNA, true);
 
         // check for player letting go of analogue stick
         Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
-        /*if (dir.x == 0 && dir.y == 0)
+        if (dir.x == 0 && dir.y == 0)
         {
             state = States.IdleNA;
         }
-        */
+        
 
         if(Input.GetKey("q"))
         {
@@ -162,6 +226,7 @@ public class Movingscript : MonoBehaviour
         
 
         DoBlock();
+
     }
 
     void IdleY()
@@ -173,7 +238,21 @@ public class Movingscript : MonoBehaviour
     {
 
     }
+    void RunY()
+    {
+        /*
+        animator.SetBool(iswalkingnoSword, true);
 
+        // check for player letting go of analogue stick
+        Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
+        if( dir.x == 0 && dir.y == 0 )
+        {
+            state = States.IdleNA;
+        }
+
+        DoBlock();
+        */
+    }
     void Jump()
     {
 
@@ -202,11 +281,6 @@ public class Movingscript : MonoBehaviour
     }
 
     void Heavy()
-    {
-
-    }
-
-    void Special()
     {
 
     }
