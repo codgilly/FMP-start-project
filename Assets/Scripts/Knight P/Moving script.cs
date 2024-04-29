@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Android.Gradle;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -31,23 +32,17 @@ public class Movingscript : MonoBehaviour
     States state;
 
     Animator animator;
-    int iswalkingnoSword;
-    int isrunning;
 
-    
+
+    int wepon = 0;
     Playercontroller input;
 
-    Vector2 currentMovemnt;
-    Vector2 cameraP;
-    Vector3 Velocity;
-
-
-    bool movementPressed;
-    bool runPressed;
 
     Vector3 rotate;
-      
 
+
+
+    
     private void Awake()
     {
 
@@ -61,8 +56,6 @@ public class Movingscript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
 
-        iswalkingnoSword = Animator.StringToHash("WalkingNA");
-        isrunning = Animator.StringToHash("Running");
     }
 
     // Update is called once per frame
@@ -79,6 +72,7 @@ public class Movingscript : MonoBehaviour
 
     }
 
+    
     void DoLogic()
     {
         switch( state )
@@ -95,10 +89,6 @@ public class Movingscript : MonoBehaviour
             WalkNA();
         }
 
-        if ( state == States.RunNA )
-        {
-            RunNA();
-        }
 
         if( state == States.IdelY)
         {
@@ -110,10 +100,6 @@ public class Movingscript : MonoBehaviour
             WalkY();
         }
 
-        if (state == States.RunY)
-        {
-            RunY();
-        }
 
         if (state == States.Jump)
         {
@@ -170,14 +156,13 @@ public class Movingscript : MonoBehaviour
             UnEquip();
         }
 
-        print("Current state=" + state);
+       // print("Current state=" + state);
     }
 
     void IdleNA()
     {
 
-        print("idelNA");
-        animator.SetBool("walkingNA", false);
+        //print("idelNA");
 
 
         //check for walk
@@ -185,78 +170,128 @@ public class Movingscript : MonoBehaviour
         // check for controller analogue stick
         Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
 
-        if (  dir.x != 0 || dir.y != 0 || Input.GetKey("space"))
+        if (  dir.x != 0 || dir.y != 0)
         {
             state = States.WalkNA;
             animator.SetBool("walkingNA", true);
         }
 
-        //input.Charactercontrols.Jump.performed += ctx => ctx.ReadValueAsButton();
+        if (Input.GetKey(KeyCode.JoystickButton0)) //A
+        {
+            state = States.Jump;
+            Jump();
+        }
+        if (Input.GetKey(KeyCode.JoystickButton3)) //Y
+        {
+            state = States.Equip;
+            animator.SetBool("Unsheeth", true);
+            Unsheeth();
+        }
+        if (Input.GetKey(KeyCode.JoystickButton2)) //X
+        {
+            state = States.Drink;
+            Drink();
+        }
+        if (Input.GetKey(KeyCode.JoystickButton4)) //Scream
+        {
+            state = States.Scream;
+            Scream();
+        }
+        if (Input.GetKey(KeyCode.JoystickButton5)) //light 
+        {
+
+            state = States.Light;
+            Light();
+        }
+
+        if (Input.GetKey(KeyCode.JoystickButton7)) // puase
+        {
+            Pause();
+        }
+       
         
+        //input.Charactercontrols.Jump.performed += ctx => ctx.ReadValueAsButton();
+
 
         //if( analog stick moved ) walking(): play animation left sticxk moves root allowing to spin 
- 
+
         //DoBlock();
 
     }
+    void Pause()
+    {
 
+    }
    
     void WalkNA()
     {
         
-        print("walking");
+        //print("walking");
 
-        
-
-        // check for player letting go of analogue stick
         Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
 
         input.Charactercontrols.Movement.performed += ctx => rotate = ctx.ReadValue<Vector2>();
 
+        
         Vector3 r = new Vector3 (rotate.z, rotate.x) * 100 * Time.deltaTime;
         transform.Rotate(r, Space.World);
+
+
+
+
+        if (Input.GetKey(KeyCode.JoystickButton1))
+        {
+            //Debug.Log("wohoo!!");
+            state = States.RunNA;
+            animator.SetBool("RunningNA", true);
+        }
+        else
+        {
+            state = States.WalkNA;
+            animator.SetBool("RunningNA", false);
+        }
 
         if (dir.x == 0 && dir.y == 0)
         {
             //this is an exit, set up what the player needs to do when chaning states
             state = States.IdleNA;
             animator.SetBool("walkingNA", false);
+            animator.SetBool("RunningNA", false);
         }
         
 
-        //DoBlock();
-
     }
-    void RunNA()
+
+    void Unsheeth()
     {
-        
+        wepon = 1;
+        //animator.SetBool("Unsheeth", false);
+        animator.SetBool("IdelY", true);
+        state = States.IdelY;
+        IdleY();
     }
 
+    void Sheeth()
+    {
+        wepon = 0;
+        IdleNA();
+    }
 
     void IdleY()
     {
-
+        if (Input.GetKey(KeyCode.JoystickButton3) && wepon == 1) //Y
+        {
+            animator.SetBool("sheeth", true);
+            state = States.UnEquip;
+            Sheeth();
+        }
     }
 
     void WalkY()
     {
 
     }
-    void RunY()
-    {
-        /*
-        animator.SetBool(iswalkingnoSword, true);
-
-        // check for player letting go of analogue stick
-        Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
-        if( dir.x == 0 && dir.y == 0 )
-        {
-            state = States.IdleNA;
-        }
-
-        DoBlock();
-        */
-    }
+    
     void Jump()
     {
 
@@ -269,9 +304,10 @@ public class Movingscript : MonoBehaviour
 
     }
 
+
     public void BlockEnded()
     {
-        state = States.IdleNA;
+        state = States.IdelY;
     }
 
     void Roll()
@@ -318,35 +354,6 @@ public class Movingscript : MonoBehaviour
     {
 
     }
-
-    /*
-    void Movement()
-    {
-        bool walkingnoSword = animator.GetBool(iswalkingnoSword);
-        bool Running = animator.GetBool(isrunning);
-
-        if(movementPressed && !walkingnoSword)
-        {
-            animator.SetBool(iswalkingnoSword, true);
-        }
-
-        if (!movementPressed && walkingnoSword)
-        {
-            animator.SetBool(iswalkingnoSword, false);
-        }
-
-        if ((movementPressed && runPressed) && !Running)
-        {
-            animator.SetBool(isrunning, true);
-        }
-
-        if ((!movementPressed || !runPressed) && Running)
-        {
-            animator.SetBool(isrunning, false);
-        }
-
-    }
-    */
 
     private void OnEnable()
     {
