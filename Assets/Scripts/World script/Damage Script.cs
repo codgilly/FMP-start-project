@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class DamageScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+
+    void DeathPartical()
     {
-        
+        print("dead");
+        //when dead particales start
+        //destory object
+    }
+    void DeathParticalP()
+    {
+        print("Player dead");
+        //respawn
+        //reset health potions
+        //when dead particales start
     }
 }

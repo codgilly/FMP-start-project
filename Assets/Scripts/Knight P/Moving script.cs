@@ -24,6 +24,7 @@ enum States
     Rest,
     Equip,
     UnEquip,
+    hit,
 
 };
 
@@ -37,7 +38,7 @@ public class Movingscript : MonoBehaviour
     int wepon = 0;
     public Playercontroller input;
 
-    Vector2 move;
+    private float move;
 
     Vector3 rotate;
 
@@ -132,13 +133,19 @@ public class Movingscript : MonoBehaviour
                 Sheeth();
             break;
 
+            case States.hit:
+                Hit();
+            break;
+
         }
 
     }
 
+
+
     void IdleNA()
     {
-
+        animator.SetBool("sheeth", false);
         print("idleNA");
 
         input.Charactercontrols.Movement.performed += ctx => Debug.Log(ctx.ReadValueAsObject());
@@ -152,24 +159,25 @@ public class Movingscript : MonoBehaviour
             animator.SetBool("walkingNA", true);
         }
 
-        if (Input.GetKey(KeyCode.JoystickButton0)) //A
+        if (Input.GetKeyDown(KeyCode.JoystickButton0)) //A
         {
             state = States.Jump;
             
         }
-        if (Input.GetKey(KeyCode.JoystickButton3) && wepon == 0) //Y
+        if (Input.GetKeyDown(KeyCode.JoystickButton3) && wepon == 0) //Y
         {
             state = States.Equip;
             animator.SetBool("Unsheeth", true);
             
         }
-        if (Input.GetKey(KeyCode.JoystickButton2)) //X
+        if (Input.GetKeyDown(KeyCode.JoystickButton2)) //X
         {
-            //state = States.Drink;
+            state = States.Drink;
             animator.SetBool("Drink", true);
-            
+            //animator.SetBool("Drink", false);
+
         }
-        if (Input.GetKey(KeyCode.JoystickButton4)) //Scream
+        if (Input.GetKeyDown(KeyCode.JoystickButton4)) //Scream
         {
            
             state = States.Scream;
@@ -177,14 +185,14 @@ public class Movingscript : MonoBehaviour
             
         }
 
-        if (Input.GetKey(KeyCode.JoystickButton1)) //B
+        if (Input.GetKeyDown(KeyCode.JoystickButton1)) //B
         {
             state = States.Roll;
             animator.SetBool("Roll", true);
             
         }
 
-        if (Input.GetKey(KeyCode.JoystickButton7)) // puase
+        if (Input.GetKeyDown(KeyCode.JoystickButton7)) // puase
         {
             Pause();
         }
@@ -219,7 +227,7 @@ public class Movingscript : MonoBehaviour
 
 
 
-        if (Input.GetKey(KeyCode.JoystickButton1))
+        if (Input.GetKeyDown(KeyCode.JoystickButton1))
         {
             //Debug.Log("wohoo!!");
             state = States.RunNA;
@@ -269,39 +277,50 @@ public class Movingscript : MonoBehaviour
             Sheeth();
         }
         */
-        if (Input.GetKey(KeyCode.JoystickButton5)) //light 
+        if (Input.GetKeyDown(KeyCode.JoystickButton5)) //light 
         {
             animator.SetBool("Light", true);
             //state = States.Light;
             
         }
 
-        if (Input.GetKey(KeyCode.JoystickButton1)) //B
+        if (Input.GetKeyDown(KeyCode.JoystickButton1)) //B
         {
             state = States.Roll;
             animator.SetBool("Roll", true);
             Roll();
         }
 
-        Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
-
+        //Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
+        /*
         if (dir.x != 0 || dir.y != 0)
         {
             state = States.WalkY;
             animator.SetBool("walkingY", true);
         }
-
-        if (Input.GetKey(KeyCode.JoystickButton2)) //X
+        */
+        if (Input.GetKeyDown(KeyCode.JoystickButton2)) //X
         {
             state = States.Drink;
+            animator.SetBool("Drink", true);
+            //animator.SetBool("Drink", false);
 
         }
 
-        if (Input.GetKey(KeyCode.JoystickButton4)) //Scream
+        if (Input.GetKeyDown(KeyCode.JoystickButton4)) //Scream
         {
 
             //state = States.Scream;
             animator.SetBool("Scream", true);
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton3) && wepon == 1) //Y
+        {
+            state = States.UnEquip;
+            animator.SetBool("Unsheeth", false);
+            animator.SetBool("IdelY", false);
+            animator.SetBool("sheeth", true);
 
         }
     }
@@ -413,6 +432,11 @@ public class Movingscript : MonoBehaviour
     void Rest()
     {
 
+    }
+
+    void Hit()
+    {
+        //when hit
     }
 
     void OnEndable()

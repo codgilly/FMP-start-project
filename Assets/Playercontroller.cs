@@ -213,6 +213,17 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""b3107744-9c6a-4b45-8f58-f28581f95d59"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""2e8f5377-36ca-4b26-b752-fe5389021e40"",
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": ""Press(behavior=2)"",

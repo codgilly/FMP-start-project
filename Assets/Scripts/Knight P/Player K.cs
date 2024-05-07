@@ -1,18 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerK : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    /*
+    public Rigidbody rb;
+    public float forceStrength = 20;
+
+    float forceControll;
+
+    private void Start()
     {
-        
+        rb = gameObject.AddComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void update()
     {
-        
+        forceControll = Input.GetAxis("Vertical");
     }
+
+    private void FixedUpdate()
+    {
+        rb.AddForce(Vector3.up * forceStrength);
+ 
+    }
+    */
 }

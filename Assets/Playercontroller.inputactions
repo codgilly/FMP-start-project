@@ -2,7 +2,7 @@
     "name": "Playercontroller",
     "maps": [
         {
-            "name": "Character controls",
+            "name": "Charactercontrols",
             "id": "f4e77dc8-c36f-49af-bb05-18da376952f5",
             "actions": [
                 {
@@ -184,6 +184,17 @@
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "StickDeadzone",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b3107744-9c6a-4b45-8f58-f28581f95d59",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "",
                     "groups": "",
                     "action": "Movement",
                     "isComposite": false,
