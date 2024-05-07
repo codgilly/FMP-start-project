@@ -64,8 +64,6 @@ public class Movingscript : MonoBehaviour
     void Update()
     {
         DoLogic();
-
-        
     }
 
 
@@ -151,13 +149,24 @@ public class Movingscript : MonoBehaviour
         input.Charactercontrols.Movement.performed += ctx => Debug.Log(ctx.ReadValueAsObject());
 
         // check for controller analogue stick
-        Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
+        Debug.Log(Gamepad.current.leftStick.x.ReadValue());
 
+        Debug.Log(Gamepad.current.leftStick.y.ReadValue());
+
+
+
+        Debug.Log(Gamepad.current.rightStick.x.ReadValue());
+
+        Debug.Log(Gamepad.current.rightStick.y.ReadValue());
+
+        //Vector3 dir == Gamepad.current.leftStick;
+        /*
         if (dir.x != 0 || dir.y != 0)
         {
             state = States.WalkNA;
             animator.SetBool("walkingNA", true);
         }
+        */
 
         if (Input.GetKeyDown(KeyCode.JoystickButton0)) //A
         {
