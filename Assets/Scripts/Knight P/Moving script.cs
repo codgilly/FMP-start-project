@@ -42,8 +42,7 @@ public class Movingscript : MonoBehaviour
 
     Vector3 rotate;
 
-
-
+    Vector3 go;
     
     private void Awake()
     {
@@ -53,6 +52,8 @@ public class Movingscript : MonoBehaviour
         input = new Playercontroller();
         input.Charactercontrols.Movement.performed += ctx => Debug.Log(ctx.ReadValueAsObject());
 
+
+        input.Charactercontrols.Movement.performed += ctx => go = ctx.ReadValue<Vector3>();
     }
     void Start()
     {
@@ -154,11 +155,10 @@ public class Movingscript : MonoBehaviour
         Debug.Log(Gamepad.current.leftStick.y.ReadValue());
 
 
-
-        Debug.Log(Gamepad.current.rightStick.x.ReadValue());
-
-        Debug.Log(Gamepad.current.rightStick.y.ReadValue());
-
+        Vector3 m = new Vector3(go.x * 5, 0, go.y * 5);
+        GetComponent<Rigidbody>().velocity = m;
+        GetComponent<Transform>().Rotate(Vector3.up * rotate.x * .2f);
+        
         //Vector3 dir == Gamepad.current.leftStick;
         /*
         if (dir.x != 0 || dir.y != 0)

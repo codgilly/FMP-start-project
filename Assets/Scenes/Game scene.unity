@@ -10721,6 +10721,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eee7fef9d864fd43bb0065195fec207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &297809750
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297809729}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &298217213 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6596136857271702588, guid: d118a6b2dec934648b389000c61b4f04, type: 3}
@@ -25528,7 +25555,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 721744183}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14362882, y: 0.47117585, z: -0.078077726, w: 0.8667572}
+  m_LocalRotation: {x: 0.14362882, y: 0.47117585, z: -0.07807772, w: 0.8667572}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -73440,7 +73467,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1816239002}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.17501894, y: 0.46802872, z: -0.09514164, w: 0.8609678}
+  m_LocalRotation: {x: 0.17501895, y: 0.46802872, z: -0.09514164, w: 0.8609678}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -86098,6 +86125,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8254903127975697031, guid: 8dfc3f946f3c9e64db9f2e75ed8812d0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 297809746}
+    - targetCorrespondingSourceObject: {fileID: 8254903127975697031, guid: 8dfc3f946f3c9e64db9f2e75ed8812d0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 297809750}
   m_SourcePrefab: {fileID: 100100000, guid: 8dfc3f946f3c9e64db9f2e75ed8812d0, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
