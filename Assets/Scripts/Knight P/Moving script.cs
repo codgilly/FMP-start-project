@@ -1,9 +1,13 @@
+using NUnit.Framework.Internal;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using Unity.Android.Gradle;
+using Unity.Android.Gradle.Manifest;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.DefaultInputActions;
 
 enum States
 {
@@ -32,18 +36,21 @@ public class Movingscript : MonoBehaviour
 {
     States state;
 
+   
     Animator animator;
 
-
+    
     int wepon = 0;
     public Playercontroller input;
-
-    private float move;
-
+    
     Vector3 rotate;
 
-    Vector3 go;
-    
+
+
+
+    float h,v;
+   
+    public bool joystickPressed = false;
     private void Awake()
     {
 
@@ -53,11 +60,10 @@ public class Movingscript : MonoBehaviour
         input.Charactercontrols.Movement.performed += ctx => Debug.Log(ctx.ReadValueAsObject());
 
 
-        input.Charactercontrols.Movement.performed += ctx => go = ctx.ReadValue<Vector3>();
     }
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>(); 
 
     }
 
@@ -66,8 +72,6 @@ public class Movingscript : MonoBehaviour
     {
         DoLogic();
     }
-
-
     void DoLogic()
     {
         switch( state )
@@ -139,40 +143,22 @@ public class Movingscript : MonoBehaviour
         }
 
     }
-
-
-
     void IdleNA()
     {
+        
         animator.SetBool("sheeth", false);
         print("idleNA");
 
         input.Charactercontrols.Movement.performed += ctx => Debug.Log(ctx.ReadValueAsObject());
-
-        // check for controller analogue stick
-        Debug.Log(Gamepad.current.leftStick.x.ReadValue());
-
-        Debug.Log(Gamepad.current.leftStick.y.ReadValue());
-
-
-        Vector3 m = new Vector3(go.x * 5, 0, go.y * 5);
-        GetComponent<Rigidbody>().velocity = m;
-        GetComponent<Transform>().Rotate(Vector3.up * rotate.x * .2f);
         
-        //Vector3 dir == Gamepad.current.leftStick;
-        /*
-        if (dir.x != 0 || dir.y != 0)
+      
+        if (GetStickMagnitude() > 0.1f)
         {
-            state = States.WalkNA;
             animator.SetBool("walkingNA", true);
+            state = States.WalkNA;
+            joystickPressed = true;
         }
-        */
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton0)) //A
-        {
-            state = States.Jump;
-            
-        }
         if (Input.GetKeyDown(KeyCode.JoystickButton3) && wepon == 0) //Y
         {
             state = States.Equip;
@@ -191,13 +177,6 @@ public class Movingscript : MonoBehaviour
            
             state = States.Scream;
             animator.SetBool("Scream", true);
-            
-        }
-
-        if (Input.GetKeyDown(KeyCode.JoystickButton1)) //B
-        {
-            state = States.Roll;
-            animator.SetBool("Roll", true);
             
         }
 
@@ -222,38 +201,61 @@ public class Movingscript : MonoBehaviour
    
     void WalkNA()
     {
+        //get v & h and get the magnitued of them, and .normalise 
 
-        //print("walking");
+        Vector2 aim = Gamepad.current.leftStick.ReadValue();
+        Vector3 direction = new Vector3(aim.x, 0, aim.y); //if you're 2d side scroller, you need to swap 2nd and 3rd value.
+        transform.rotation = Quaternion.LookRotation(direction);
 
-        Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
+        Debug.Log(Gamepad.current.leftStick.x.ReadValue());
 
-        input.Charactercontrols.Movement.performed += ctx => rotate = ctx.ReadValue<Vector2>();
-
-
-        Vector3 r = new Vector3(rotate.z, rotate.x) * 100 * Time.deltaTime;
-        transform.Rotate(r, Space.World);
-
-
-
+        Debug.Log(Gamepad.current.leftStick.y.ReadValue());
 
         if (Input.GetKeyDown(KeyCode.JoystickButton1))
         {
             //Debug.Log("wohoo!!");
-            state = States.RunNA;
+            //state = States.RunNA;
             animator.SetBool("RunningNA", true);
         }
-        else
+        if (Input.GetKeyUp(KeyCode.JoystickButton1))
         {
-            state = States.WalkNA;
+            
             animator.SetBool("RunningNA", false);
         }
 
-        if (dir.x == 0 && dir.y == 0)
+
+        if (GetStickMagnitude() < 0.1f)
         {
-            //this is an exit, set up what the player needs to do when chaning states
-            state = States.IdleNA;
             animator.SetBool("walkingNA", false);
             animator.SetBool("RunningNA", false);
+            state = States.IdleNA;
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton3) && wepon == 0) //Y
+        {
+            state = States.Equip;
+            animator.SetBool("Unsheeth", true);
+
+        }
+        if (Input.GetKeyDown(KeyCode.JoystickButton2)) //X
+        {
+            state = States.Drink;
+            animator.SetBool("Drink", true);
+            //animator.SetBool("Drink", false);
+
+        }
+        if (Input.GetKeyDown(KeyCode.JoystickButton4)) //Scream
+        {
+
+            state = States.Scream;
+            animator.SetBool("Scream", true);
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton7)) // puase
+        {
+            Pause();
         }
 
     }
@@ -300,28 +302,16 @@ public class Movingscript : MonoBehaviour
             Roll();
         }
 
-        //Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
-        /*
-        if (dir.x != 0 || dir.y != 0)
-        {
-            state = States.WalkY;
-            animator.SetBool("walkingY", true);
-        }
-        */
         if (Input.GetKeyDown(KeyCode.JoystickButton2)) //X
         {
             state = States.Drink;
             animator.SetBool("Drink", true);
-            //animator.SetBool("Drink", false);
-
         }
 
         if (Input.GetKeyDown(KeyCode.JoystickButton4)) //Scream
         {
-
-            //state = States.Scream;
+            state = States.Scream;
             animator.SetBool("Scream", true);
-
         }
 
         if (Input.GetKeyDown(KeyCode.JoystickButton3) && wepon == 1) //Y
@@ -332,24 +322,105 @@ public class Movingscript : MonoBehaviour
             animator.SetBool("sheeth", true);
 
         }
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton0)) //A
+        {
+            animator.SetBool("Jump", true);
+            state = States.Jump;
+
+        }
+
+        if (GetStickMagnitude() > 0.1f)
+        {
+            animator.SetBool("WalkY", true);
+            state = States.WalkY;
+            joystickPressed = true;
+        }
     }
 
     void WalkY()
     {
-        Vector2 dir = input.Charactercontrols.Movement.ReadValue<Vector2>();
+        
+        Vector2 aim = Gamepad.current.leftStick.ReadValue();
+        Vector3 direction = new Vector3(aim.x, 0, aim.y); //if you're 2d side scroller, you need to swap 2nd and 3rd value.
+        transform.rotation = Quaternion.LookRotation(direction);
 
-        input.Charactercontrols.Movement.performed += ctx => rotate = ctx.ReadValue<Vector2>();
+        if(GetStickMagnitude() < 0.1f)
+        {
+            animator.SetBool("WalkY", false);
+            state = States.IdelY;
+        }
 
+        if (Input.GetKeyDown(KeyCode.JoystickButton5)) //light 
+        {
+            animator.SetBool("WalkY", false);
+            animator.SetBool("Light", true);
+            //state = States.Light;
 
-        Vector3 r = new Vector3(rotate.z, rotate.x) * 100 * Time.deltaTime;
-        transform.Rotate(r, Space.World);
+        }
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton1)) //B
+        {
+            state = States.Roll;
+            animator.SetBool("Roll", true);
+            //Roll();
+        }
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton2)) //X
+        {
+            state = States.Drink;
+            animator.SetBool("Drink", true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton4)) //Scream
+        {
+            animator.SetBool("Scream", true);
+            state = States.Scream;
+        }
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton3) && wepon == 1) //Y
+        {
+            state = States.UnEquip;
+            animator.SetBool("Unsheeth", false);
+            animator.SetBool("IdelY", false);
+            animator.SetBool("sheeth", true);
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton0)) //A
+        {
+            animator.SetBool("Jump", true);
+            state = States.Jump;
+
+        }
     }
     
+
+
     void Jump()
     {
 
+        if (Input.GetKeyDown(KeyCode.JoystickButton5) && wepon == 1)
+        {
+
+            state = States.JumpAttack;
+            animator.SetBool("JumpAttack", true);
+        }
+        if (wepon == 0)
+        {
+            animator.SetBool("Jump", false);
+            state = States.IdleNA;
+            //IdleNA();
+        }
+        if (wepon == 1)
+        {
+            animator.SetBool("Jump", false);
+            state = States.IdelY;
+            //IdleY();
+        }
     }
-        
+
+    
     void DoBlock()
     {
         // add code to perform block with L1
@@ -417,7 +488,9 @@ public class Movingscript : MonoBehaviour
     }
     void JumpAttack()
     {
-
+        animator.SetBool("Jump", false);
+        animator.SetBool("JumpAttack", false);
+        state = States.IdelY;
     }
 
     void Drink()
@@ -450,11 +523,18 @@ public class Movingscript : MonoBehaviour
 
     void OnEndable()
     {
+        //move = CharacterController.Player.Move;
         input.Charactercontrols.Enable();
     }
 
-    private void OnDisable()
+    float GetStickMagnitude()
     {
-        input.Charactercontrols.Disable();
+        float h, v;
+        h = Input.GetAxis("Horizontal");
+        v = Input.GetAxis("Vertical");
+
+        Vector2 vec = new Vector2(h, v);
+        float mag = vec.magnitude;
+        return mag;
     }
 }
