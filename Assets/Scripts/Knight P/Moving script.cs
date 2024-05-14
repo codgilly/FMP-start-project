@@ -7,6 +7,7 @@ using Unity.Android.Gradle.Manifest;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using static UnityEngine.InputSystem.DefaultInputActions;
 
 enum States
@@ -29,11 +30,15 @@ enum States
     Equip,
     UnEquip,
     hit,
+   
 
 };
 
 public class Movingscript : MonoBehaviour
 {
+
+    Healthscripts healthscripts;
+
     States state;
 
    
@@ -46,7 +51,7 @@ public class Movingscript : MonoBehaviour
     Vector3 rotate;
 
 
-
+    public static Movingscript instance;
 
     float h,v;
    
@@ -59,6 +64,20 @@ public class Movingscript : MonoBehaviour
         input = new Playercontroller();
         input.Charactercontrols.Movement.performed += ctx => Debug.Log(ctx.ReadValueAsObject());
 
+        if (instance == null)
+        {
+            // if instance is null, store a reference to this instance
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            print("dont destroy");
+        }
+        else
+        {
+            // Another instance of this gameobject has been made so destroy it
+            // as we already have one
+            print("do destroy");
+            Destroy(gameObject);
+        }
 
     }
     void Start()
@@ -140,6 +159,9 @@ public class Movingscript : MonoBehaviour
                 Hit();
             break;
 
+      
+
+
         }
 
     }
@@ -184,7 +206,8 @@ public class Movingscript : MonoBehaviour
         {
             Pause();
         }
-       
+
+
         
         //input.Charactercontrols.Jump.performed += ctx => ctx.ReadValueAsButton();
 
@@ -457,6 +480,7 @@ public class Movingscript : MonoBehaviour
             state = States.IdelY;
             //IdleY();
         }
+
     }
 
     void Light()
@@ -469,7 +493,10 @@ public class Movingscript : MonoBehaviour
     {
 
     }
-
+    void SceneChange()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     void Scream()
     {
         print("Scream finished");
@@ -484,7 +511,8 @@ public class Movingscript : MonoBehaviour
             animator.SetBool("Scream", false);
             state = States.IdelY;
         }
-        
+
+
     }
     void JumpAttack()
     {
@@ -509,6 +537,7 @@ public class Movingscript : MonoBehaviour
             //IdleY();
         }
 
+
     }
 
     void Rest()
@@ -520,7 +549,10 @@ public class Movingscript : MonoBehaviour
     {
         //when hit
     }
-
+    public void Dead()
+    {
+        animator.SetBool("dead", true);
+    }
     void OnEndable()
     {
         //move = CharacterController.Player.Move;

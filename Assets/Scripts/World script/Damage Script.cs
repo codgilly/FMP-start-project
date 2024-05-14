@@ -4,19 +4,31 @@ using UnityEngine;
 
 public class DamageScript : MonoBehaviour
 {
+    Healthscripts healthscripts;
 
+    public float damage;
 
-    void DeathPartical()
+    void awake()
+    {
+
+        healthscripts = GetComponent<Healthscripts>();
+    }
+
+    private void Start()
+    {
+
+    }
+
+    private void Update()
+    {
+        
+    }
+
+    void OnTriggerEnter(Collider other)
     {
         print("dead");
-        //when dead particales start
-        //destory object
+        healthscripts.health =- damage;
     }
-    void DeathParticalP()
-    {
-        print("Player dead");
-        //respawn
-        //reset health potions
-        //when dead particales start
-    }
+        
+    
 }

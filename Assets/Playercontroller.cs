@@ -24,7 +24,7 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
     ""name"": ""Playercontroller"",
     ""maps"": [
         {
-            ""name"": ""Character controls"",
+            ""name"": ""Charactercontrols"",
             ""id"": ""f4e77dc8-c36f-49af-bb05-18da376952f5"",
             ""actions"": [
                 {
@@ -421,12 +421,71 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""d5857ce3-c58b-4422-9c6d-901433519ae3"",
+            ""actions"": [
+                {
+                    ""name"": ""Navigation"",
+                    ""type"": ""Value"",
+                    ""id"": ""68004978-2bbe-4e2c-a618-358f5b751fb0"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Submit"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b37b79f-45de-4348-ba3a-a929a769cd57"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c6f2fef9-ca54-48f0-a944-793e5d83e259"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad4f03d6-23b2-49b8-8fbf-61fdbe314575"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ff027d2-1105-4ee7-9a70-3df684fe8f1f"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // Character controls
-        m_Charactercontrols = asset.FindActionMap("Character controls", throwIfNotFound: true);
+        // Charactercontrols
+        m_Charactercontrols = asset.FindActionMap("Charactercontrols", throwIfNotFound: true);
         m_Charactercontrols_Movement = m_Charactercontrols.FindAction("Movement", throwIfNotFound: true);
         m_Charactercontrols_Run = m_Charactercontrols.FindAction("Run", throwIfNotFound: true);
         m_Charactercontrols_Camera = m_Charactercontrols.FindAction("Camera", throwIfNotFound: true);
@@ -446,6 +505,10 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
         m_Charactercontrols_MenuLeft = m_Charactercontrols.FindAction("MenuLeft", throwIfNotFound: true);
         m_Charactercontrols_MenuRight = m_Charactercontrols.FindAction("MenuRight", throwIfNotFound: true);
         m_Charactercontrols_MenuDown = m_Charactercontrols.FindAction("MenuDown", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_Navigation = m_UI.FindAction("Navigation", throwIfNotFound: true);
+        m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -504,7 +567,7 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Character controls
+    // Charactercontrols
     private readonly InputActionMap m_Charactercontrols;
     private List<ICharactercontrolsActions> m_CharactercontrolsActionsCallbackInterfaces = new List<ICharactercontrolsActions>();
     private readonly InputAction m_Charactercontrols_Movement;
@@ -693,6 +756,60 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
         }
     }
     public CharactercontrolsActions @Charactercontrols => new CharactercontrolsActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_Navigation;
+    private readonly InputAction m_UI_Submit;
+    public struct UIActions
+    {
+        private @Playercontroller m_Wrapper;
+        public UIActions(@Playercontroller wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Navigation => m_Wrapper.m_UI_Navigation;
+        public InputAction @Submit => m_Wrapper.m_UI_Submit;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @Navigation.started += instance.OnNavigation;
+            @Navigation.performed += instance.OnNavigation;
+            @Navigation.canceled += instance.OnNavigation;
+            @Submit.started += instance.OnSubmit;
+            @Submit.performed += instance.OnSubmit;
+            @Submit.canceled += instance.OnSubmit;
+        }
+
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @Navigation.started -= instance.OnNavigation;
+            @Navigation.performed -= instance.OnNavigation;
+            @Navigation.canceled -= instance.OnNavigation;
+            @Submit.started -= instance.OnSubmit;
+            @Submit.performed -= instance.OnSubmit;
+            @Submit.canceled -= instance.OnSubmit;
+        }
+
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     public interface ICharactercontrolsActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -714,5 +831,10 @@ public partial class @Playercontroller: IInputActionCollection2, IDisposable
         void OnMenuLeft(InputAction.CallbackContext context);
         void OnMenuRight(InputAction.CallbackContext context);
         void OnMenuDown(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnNavigation(InputAction.CallbackContext context);
+        void OnSubmit(InputAction.CallbackContext context);
     }
 }

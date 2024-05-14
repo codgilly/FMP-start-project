@@ -8,7 +8,10 @@ public class AudioPlayer : MonoBehaviour
 
     public AudioClip Unsheeth;
     public AudioClip Walk;
+    public AudioClip Walk2;
     public AudioClip Run;
+    public AudioClip Run2;
+    public AudioClip Jump;
     public AudioClip SwingL;
     public AudioClip SwingH;
     public AudioClip Scream;
@@ -31,9 +34,21 @@ public class AudioPlayer : MonoBehaviour
     {
         AudioSource.PlayOneShot(Walk);
     }
+    void Walking2()
+    {
+        AudioSource.PlayOneShot(Walk2);
+    }
     void Running()
     {
         AudioSource.PlayOneShot(Run);
+    }
+    void Running2()
+    {
+        AudioSource.PlayOneShot(Run2);
+    }
+    void Jumpped()
+    {
+        AudioSource.PlayOneShot(Jump);
     }
     void LightSFX()
     {
