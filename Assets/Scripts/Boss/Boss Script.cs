@@ -4,32 +4,30 @@ using UnityEngine;
 
 public class BossScript : MonoBehaviour
 {
-    /*
-    Animator animator;
-    Healthscripts healthscripts;
-    GameObject Boss;
+    public GameObject objectToFind;
+
+    public enum CollideType
+    {
+        CollisionEnter,
+        CollisionStay,
+        CollisionExit,
+    }
 
     private void Awake()
     {
-
-
-        animator = GetComponent<Animator>();
-        healthscripts = Boss.GetComponent<Healthscripts>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
         
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if (healthscripts.health == 0)
-        {
-            animator.SetBool("die", true);
-        }
+       // objectToFind = transform.GetChild(0).gameObject;
+       // Debug.Log(objectToFind);
     }
-    */
+
+    private void Update()
+    {
+
+    }
+
+
+
 }

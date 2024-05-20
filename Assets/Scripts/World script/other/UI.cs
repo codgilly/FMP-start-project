@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UI : MonoBehaviour
 {
 
+
     Healthscripts healthscripts;
     // Start is called before the first frame update
     void Start()
@@ -23,5 +24,8 @@ public class UI : MonoBehaviour
     {
 
     }
+
+
+
 
 }

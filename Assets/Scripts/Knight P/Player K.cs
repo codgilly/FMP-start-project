@@ -3,10 +3,16 @@ using UnityEngine.UI;
 
 public class PlayerK : MonoBehaviour
 {
-    void DeathScreen()
+    public Slider healthSlider;
+
+
+    public void SetSlider(float amount)
     {
-        //open death screen
-        //wait 4 seconds
-        //reload scene
+        healthSlider.value = amount;
+    }
+    public void SetSliderMax(float amount)
+    {
+        healthSlider.maxValue = amount;
+        SetSlider(amount);
     }
 }

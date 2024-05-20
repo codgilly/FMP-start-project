@@ -8,6 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using static UnityEngine.InputSystem.DefaultInputActions;
 
 enum States
@@ -40,22 +41,21 @@ public class Movingscript : MonoBehaviour
     Healthscripts healthscripts;
 
     States state;
+    float Healedtimes = 5;
 
-   
+
     Animator animator;
 
-    
+    public GameObject dscreen;
+
     int wepon = 0;
     public Playercontroller input;
-    
-    Vector3 rotate;
+    private InputAction menu;
 
 
-    public static Movingscript instance;
+    public GameObject IsPaused;
 
-    float h,v;
-   
-    public bool joystickPressed = false;
+
     private void Awake()
     {
 
@@ -64,20 +64,9 @@ public class Movingscript : MonoBehaviour
         input = new Playercontroller();
         input.Charactercontrols.Movement.performed += ctx => Debug.Log(ctx.ReadValueAsObject());
 
-        if (instance == null)
-        {
-            // if instance is null, store a reference to this instance
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-            print("dont destroy");
-        }
-        else
-        {
-            // Another instance of this gameobject has been made so destroy it
-            // as we already have one
-            print("do destroy");
-            Destroy(gameObject);
-        }
+        dscreen.gameObject.SetActive(false);
+        IsPaused.gameObject.SetActive(false);
+
 
     }
     void Start()
@@ -90,6 +79,8 @@ public class Movingscript : MonoBehaviour
     void Update()
     {
         DoLogic();
+
+        OnEndable();
     }
     void DoLogic()
     {
@@ -171,14 +162,14 @@ public class Movingscript : MonoBehaviour
         animator.SetBool("sheeth", false);
         print("idleNA");
 
-        input.Charactercontrols.Movement.performed += ctx => Debug.Log(ctx.ReadValueAsObject());
+        
         
       
         if (GetStickMagnitude() > 0.1f)
         {
             animator.SetBool("walkingNA", true);
             state = States.WalkNA;
-            joystickPressed = true;
+            
         }
 
         if (Input.GetKeyDown(KeyCode.JoystickButton3) && wepon == 0) //Y
@@ -187,11 +178,12 @@ public class Movingscript : MonoBehaviour
             animator.SetBool("Unsheeth", true);
             
         }
-        if (Input.GetKeyDown(KeyCode.JoystickButton2)) //X
+        if (Input.GetKeyDown(KeyCode.JoystickButton2) && Healedtimes >= 1) //X
         {
             state = States.Drink;
             animator.SetBool("Drink", true);
             //animator.SetBool("Drink", false);
+            Healedtimes--;
 
         }
         if (Input.GetKeyDown(KeyCode.JoystickButton4)) //Scream
@@ -202,12 +194,8 @@ public class Movingscript : MonoBehaviour
             
         }
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton7)) // puase
-        {
-            Pause();
-        }
 
-
+        
         
         //input.Charactercontrols.Jump.performed += ctx => ctx.ReadValueAsButton();
 
@@ -217,9 +205,9 @@ public class Movingscript : MonoBehaviour
         //DoBlock();
 
     }
-    void Pause()
+    void Pause(InputAction.CallbackContext context)
     {
-
+        IsPaused.gameObject.SetActive(true);
     }
    
     void WalkNA()
@@ -254,18 +242,12 @@ public class Movingscript : MonoBehaviour
             state = States.IdleNA;
         }
 
-
-        if (Input.GetKeyDown(KeyCode.JoystickButton3) && wepon == 0) //Y
-        {
-            state = States.Equip;
-            animator.SetBool("Unsheeth", true);
-
-        }
-        if (Input.GetKeyDown(KeyCode.JoystickButton2)) //X
+        if (Input.GetKeyDown(KeyCode.JoystickButton2) && Healedtimes >= 1) //X
         {
             state = States.Drink;
             animator.SetBool("Drink", true);
             //animator.SetBool("Drink", false);
+            Healedtimes--;
 
         }
         if (Input.GetKeyDown(KeyCode.JoystickButton4)) //Scream
@@ -276,9 +258,9 @@ public class Movingscript : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton7)) // puase
+        if (Input.GetKeyDown(KeyCode.JoystickButton17) || Input.GetKeyDown(KeyCode.JoystickButton16) || Input.GetKeyDown(KeyCode.JoystickButton18)) // puase
         {
-            Pause();
+            print("Puased!!");
         }
 
     }
@@ -301,16 +283,7 @@ public class Movingscript : MonoBehaviour
     {
 
         animator.SetBool("IdelY", true);
-        //animator.SetBool("Unsheeth", false);
 
-        /*
-        if (Input.GetKey(KeyCode.JoystickButton3) && wepon == 1) //Y
-        {
-            animator.SetBool("sheeth", true);
-            state = States.UnEquip;
-            Sheeth();
-        }
-        */
         if (Input.GetKeyDown(KeyCode.JoystickButton5)) //light 
         {
             animator.SetBool("Light", true);
@@ -325,10 +298,12 @@ public class Movingscript : MonoBehaviour
             Roll();
         }
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton2)) //X
+        if (Input.GetKeyDown(KeyCode.JoystickButton2) && Healedtimes >= 1) //X
         {
             state = States.Drink;
             animator.SetBool("Drink", true);
+            Healedtimes--;
+
         }
 
         if (Input.GetKeyDown(KeyCode.JoystickButton4)) //Scream
@@ -357,7 +332,7 @@ public class Movingscript : MonoBehaviour
         {
             animator.SetBool("WalkY", true);
             state = States.WalkY;
-            joystickPressed = true;
+            
         }
     }
 
@@ -389,10 +364,12 @@ public class Movingscript : MonoBehaviour
             //Roll();
         }
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton2)) //X
+        if (Input.GetKeyDown(KeyCode.JoystickButton2) && Healedtimes >= 1) //X
         {
             state = States.Drink;
             animator.SetBool("Drink", true);
+            Healedtimes--;
+
         }
 
         if (Input.GetKeyDown(KeyCode.JoystickButton4)) //Scream
@@ -401,14 +378,6 @@ public class Movingscript : MonoBehaviour
             state = States.Scream;
         }
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton3) && wepon == 1) //Y
-        {
-            state = States.UnEquip;
-            animator.SetBool("Unsheeth", false);
-            animator.SetBool("IdelY", false);
-            animator.SetBool("sheeth", true);
-
-        }
 
         if (Input.GetKeyDown(KeyCode.JoystickButton0)) //A
         {
@@ -539,7 +508,14 @@ public class Movingscript : MonoBehaviour
 
 
     }
-
+    void Heal()
+    {
+        if (Input.GetKeyDown(KeyCode.JoystickButton2))
+        {
+            healthscripts.Healing(40);
+        } 
+            
+    }
     void Rest()
     {
 
@@ -555,10 +531,17 @@ public class Movingscript : MonoBehaviour
     }
     void OnEndable()
     {
+        menu = input.Charactercontrols.Puase;
         //move = CharacterController.Player.Move;
         input.Charactercontrols.Enable();
-    }
+        menu.Enable();
 
+        menu.performed += Pause;
+    }
+    public void DeathScreen()
+    {
+        dscreen.SetActive(true);
+    }
     float GetStickMagnitude()
     {
         float h, v;

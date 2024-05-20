@@ -10,22 +10,13 @@ public class StartScreen : MonoBehaviour
     public static StartScreen instance;
     private bool muted = false;
 
+
+
+
     private void Awake()
     {
-        if (instance == null)
-        {
-            // if instance is null, store a reference to this instance
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-            print("dont destroy");
-        }
-        else
-        {
-            // Another instance of this gameobject has been made so destroy it
-            // as we already have one
-            print("do destroy");
-            Destroy(gameObject);
-        }
+        Invoke("GoGameScene", 23);
+
     }
     // Start is called before the first frame update
     void Start()
@@ -36,7 +27,6 @@ public class StartScreen : MonoBehaviour
     public void Mute()
     {
         StartScreen.instance.OnButtonPress();
-
     }
 
 
@@ -59,8 +49,18 @@ public class StartScreen : MonoBehaviour
     public void GoNextScene()
     {
         SceneManager.LoadScene(1);
+        GoGameScene();
     }
+    public void GoGameScene()
+    {
+        if (Input.GetKey(KeyCode.JoystickButton0))
+        {
+            SceneManager.LoadScene(2);
+            
+        }
 
+        SceneManager.LoadScene(2);
+    }
     public void QuitGame()
     {
         Application.Quit();

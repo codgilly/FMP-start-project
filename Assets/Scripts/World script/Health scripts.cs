@@ -18,18 +18,26 @@ public class Healthscripts : MonoBehaviour
     public float maxHealth = 100f;
     public float health;
 
+    public PlayerK playerK;
+
     public float damage;
+
+    public float timesHealed = 5;
 
     public float dead = 1;
 
+   
+
     private void Awake()
     {
+
         movingscript = player.GetComponent<Movingscript>();
     }
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
+       
         
     }
 
@@ -38,6 +46,7 @@ public class Healthscripts : MonoBehaviour
     {
         HealthCheck();
         Test();
+        
     }
 
     void HealthCheck()
@@ -47,26 +56,53 @@ public class Healthscripts : MonoBehaviour
             healthSlider.value = health;
         }
 
-        if(health <= 0 && dead == 1)
+        if (health != healthSlider.value)
+        {
+            healthSlider.value = health;
+        }
+
+        if (health <= 0 && dead == 1)
         {
             dead = 0;
+            //Dead();
             movingscript.Dead();
+            
         }
-     
+
+        if(health > maxHealth)
+        {
+            health = 100;
+        }
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton2) && timesHealed >= 1)
+        {
+            Healing(40);
+            timesHealed--;
+        }
     }
+
+   
 
     void Test()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            takeDamage(10);
+            TakeDamage(10);
         }
+
+
  
     }
 
-    void takeDamage(float damage)
+    public void TakeDamage(float amount)
     {
-        health -= damage;
+        health -= amount;
+        playerK.SetSlider(health);
+    }
+
+    public void Healing(float Heal)
+    {
+        health += Heal;
     }
     void Partical()
     {
@@ -82,4 +118,6 @@ public class Healthscripts : MonoBehaviour
         ParticleSystem ps = bottle.GetComponent<ParticleSystem>();
         ps.Play();
     }
+
+
 }

@@ -5,12 +5,15 @@ using UnityEngine;
 public class DamageScript : MonoBehaviour
 {
     Healthscripts healthscripts;
-
+    Movingscript Movingscript;
     public float damage;
-
-    void awake()
+    public enum CollideType
     {
-
+        CollisionEnter,
+        TriggerEnter,
+    }
+    void awake()
+    {   
         healthscripts = GetComponent<Healthscripts>();
     }
 
@@ -24,11 +27,16 @@ public class DamageScript : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        print("dead");
-        healthscripts.health =- damage;
+        if (other.CompareTag("Player"))
+        {
+            print("dead");
+            Movingscript.Dead();
+
+            other.GetComponent<Healthscripts>().TakeDamage(damage);
+        }
     }
-        
-    
+
+
 }
