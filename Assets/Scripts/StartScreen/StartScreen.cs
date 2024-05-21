@@ -15,7 +15,7 @@ public class StartScreen : MonoBehaviour
 
     private void Awake()
     {
-        Invoke("GoGameScene", 23);
+
 
     }
     // Start is called before the first frame update
@@ -48,8 +48,14 @@ public class StartScreen : MonoBehaviour
     }
     public void GoNextScene()
     {
-        SceneManager.LoadScene(1);
-        GoGameScene();
+        SceneManager.LoadScene(2);
+       // GoGameScene();
+    }
+
+    public void GoBackScene()
+    {
+        SceneManager.LoadScene(0);
+        // GoGameScene();
     }
     public void GoGameScene()
     {

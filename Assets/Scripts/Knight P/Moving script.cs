@@ -1,10 +1,3 @@
-using NUnit.Framework.Internal;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
-using Unity.Android.Gradle;
-using Unity.Android.Gradle.Manifest;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -415,8 +408,6 @@ public class Movingscript : MonoBehaviour
     
     void DoBlock()
     {
-        // add code to perform block with L1
-
 
     }
 
@@ -428,12 +419,8 @@ public class Movingscript : MonoBehaviour
 
     void Roll()
     {
-        
         print("rolled");
-
-      
     }
-
     public void RollFinished()
     {
         print("roll finished");
@@ -451,7 +438,6 @@ public class Movingscript : MonoBehaviour
         }
 
     }
-
     void Light()
     {
         animator.SetBool("Light", false);
@@ -505,8 +491,6 @@ public class Movingscript : MonoBehaviour
             state = States.IdelY;
             //IdleY();
         }
-
-
     }
     void Heal()
     {
@@ -520,7 +504,6 @@ public class Movingscript : MonoBehaviour
     {
 
     }
-
     void Hit()
     {
         //when hit
