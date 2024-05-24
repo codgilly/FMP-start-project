@@ -48,6 +48,8 @@ public class Movingscript : MonoBehaviour
 
     public GameObject IsPaused;
 
+    [SerializeField]
+    private Camera _followCamera;
 
     private void Awake()
     {
@@ -208,7 +210,7 @@ public class Movingscript : MonoBehaviour
         //get v & h and get the magnitued of them, and .normalise 
 
         Vector2 aim = Gamepad.current.leftStick.ReadValue();
-        Vector3 direction = new Vector3(aim.x, 0, aim.y); //if you're 2d side scroller, you need to swap 2nd and 3rd value.
+        Vector3 direction = Quaternion.Euler(0, _followCamera.transform.eulerAngles.y, 0) * new Vector3(aim.x, 0, aim.y);
         transform.rotation = Quaternion.LookRotation(direction);
 
         Debug.Log(Gamepad.current.leftStick.x.ReadValue());
@@ -331,12 +333,13 @@ public class Movingscript : MonoBehaviour
 
     void WalkY()
     {
-        
+
         Vector2 aim = Gamepad.current.leftStick.ReadValue();
-        Vector3 direction = new Vector3(aim.x, 0, aim.y); //if you're 2d side scroller, you need to swap 2nd and 3rd value.
+        Vector3 direction = Quaternion.Euler(0, _followCamera.transform.eulerAngles.y, 0) * new Vector3(aim.x, 0, aim.y);
         transform.rotation = Quaternion.LookRotation(direction);
 
-        if(GetStickMagnitude() < 0.1f)
+
+        if (GetStickMagnitude() < 0.1f)
         {
             animator.SetBool("WalkY", false);
             state = States.IdelY;

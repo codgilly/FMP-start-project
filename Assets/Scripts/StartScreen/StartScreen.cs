@@ -15,7 +15,9 @@ public class StartScreen : MonoBehaviour
 
     private void Awake()
     {
+        Cursor.lockState = CursorLockMode.Locked;
 
+        Cursor.visible = false;
 
     }
     // Start is called before the first frame update
@@ -23,7 +25,10 @@ public class StartScreen : MonoBehaviour
     {
         
     }
-
+    private void Update()
+    {
+        
+    }
     public void Mute()
     {
         StartScreen.instance.OnButtonPress();

@@ -14,5 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: bb40d7728e3f4bd498b88c1435342b3a
+  - enabled: 1
+    path: Assets/Scenes/RickRoll.unity
+    guid: bf2ba615dba2ac64aa51ec1563103941
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

@@ -25,6 +25,7 @@ public class UI : MonoBehaviour
     void Update()
     {
         HealthScreen();
+
     }
 
     void HealthScreen()

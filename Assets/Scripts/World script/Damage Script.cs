@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DamageScript : MonoBehaviour
 {
     Healthscripts healthscripts;
     Movingscript Movingscript;
     public float damage;
+    public Slider health;
     public enum CollideType
     {
         CollisionEnter,
         TriggerEnter,
     }
-    void awake()
+    void Awake()
     {   
         healthscripts = GetComponent<Healthscripts>();
     }
@@ -29,13 +31,7 @@ public class DamageScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            print("dead");
-            Movingscript.Dead();
-
-            other.GetComponent<Healthscripts>().TakeDamage(damage);
-        }
+        healthscripts.TakeDamage(damage);
     }
 
 

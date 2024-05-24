@@ -90,8 +90,6 @@ public class Healthscripts : MonoBehaviour
             TakeDamage(10);
         }
 
-
- 
     }
 
     public void TakeDamage(float amount)
