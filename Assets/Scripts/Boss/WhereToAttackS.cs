@@ -8,6 +8,7 @@ public class WhereToAttackS : MonoBehaviour
     EnemyAiTutorial bossScript;
     public NavMeshAgent navMeshAgent;
     public Transform Player;
+    public GameObject Boss;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -29,9 +30,7 @@ public class WhereToAttackS : MonoBehaviour
     {
         if (plyr.gameObject.tag == "Player")
         {
-
             navMeshAgent.SetDestination(Player.position);
-
         }
 
         

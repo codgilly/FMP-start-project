@@ -12,17 +12,12 @@ public class Healthscripts : MonoBehaviour
     [SerializeField]
     GameObject player;
 
-    public GameObject objectToDestroy;
-
     public Slider healthSlider;
-    public float maxHealth = 100f;
+    public float maxHealth;
     public float health;
 
     public PlayerK playerK;
 
-    public float damage;
-
-    public float timesHealed = 5;
 
     public float dead = 1;
 
@@ -49,7 +44,7 @@ public class Healthscripts : MonoBehaviour
         
     }
 
-    void HealthCheck()
+    public void HealthCheck()
     {
         if(healthSlider.value != health)
         {
@@ -63,21 +58,12 @@ public class Healthscripts : MonoBehaviour
 
         if (health <= 0 && dead == 1)
         {
+            player.GetComponent<EnemyAiTutorial>().DeadBoss();
             dead = 0;
             //Dead();
             movingscript.Dead();
-            
-        }
+            print("dead1");
 
-        if(health > maxHealth)
-        {
-            health = 100;
-        }
-
-        if (Input.GetKeyDown(KeyCode.JoystickButton2) && timesHealed >= 1)
-        {
-            Healing(40);
-            timesHealed--;
         }
     }
 

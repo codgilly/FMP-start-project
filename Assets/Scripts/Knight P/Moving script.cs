@@ -51,13 +51,16 @@ public class Movingscript : MonoBehaviour
     [SerializeField]
     private Camera _followCamera;
 
+    public GameObject healing;
+
+    public GameObject Sword;
+
     private void Awake()
     {
 
         state = States.IdleNA;
 
         input = new Playercontroller();
-        input.Charactercontrols.Movement.performed += ctx => Debug.Log(ctx.ReadValueAsObject());
 
         dscreen.gameObject.SetActive(false);
         IsPaused.gameObject.SetActive(false);
@@ -76,6 +79,15 @@ public class Movingscript : MonoBehaviour
         DoLogic();
 
         OnEndable();
+
+        if(wepon == 0)
+        {
+            Sword.gameObject.SetActive(false);
+        }
+        else
+        {
+            Sword.gameObject.SetActive(true);
+        }
     }
     void DoLogic()
     {
@@ -155,7 +167,6 @@ public class Movingscript : MonoBehaviour
     {
         
         animator.SetBool("sheeth", false);
-        print("idleNA");
 
         
         
@@ -177,7 +188,7 @@ public class Movingscript : MonoBehaviour
         {
             state = States.Drink;
             animator.SetBool("Drink", true);
-            //animator.SetBool("Drink", false);
+            healing.GetComponent<Healthscripts>().Healing(40);
             Healedtimes--;
 
         }
@@ -213,10 +224,7 @@ public class Movingscript : MonoBehaviour
         Vector3 direction = Quaternion.Euler(0, _followCamera.transform.eulerAngles.y, 0) * new Vector3(aim.x, 0, aim.y);
         transform.rotation = Quaternion.LookRotation(direction);
 
-        Debug.Log(Gamepad.current.leftStick.x.ReadValue());
-
-        Debug.Log(Gamepad.current.leftStick.y.ReadValue());
-
+        
         if (Input.GetKeyDown(KeyCode.JoystickButton1))
         {
             //Debug.Log("wohoo!!");
@@ -241,7 +249,7 @@ public class Movingscript : MonoBehaviour
         {
             state = States.Drink;
             animator.SetBool("Drink", true);
-            //animator.SetBool("Drink", false);
+            healing.GetComponent<Healthscripts>().Healing(40);
             Healedtimes--;
 
         }
@@ -255,7 +263,6 @@ public class Movingscript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.JoystickButton17) || Input.GetKeyDown(KeyCode.JoystickButton16) || Input.GetKeyDown(KeyCode.JoystickButton18)) // puase
         {
-            print("Puased!!");
         }
 
     }
@@ -297,6 +304,7 @@ public class Movingscript : MonoBehaviour
         {
             state = States.Drink;
             animator.SetBool("Drink", true);
+            healing.GetComponent<Healthscripts>().Healing(40);
             Healedtimes--;
 
         }
@@ -364,6 +372,7 @@ public class Movingscript : MonoBehaviour
         {
             state = States.Drink;
             animator.SetBool("Drink", true);
+            healing.GetComponent<Healthscripts>().Healing(40);
             Healedtimes--;
 
         }
@@ -422,11 +431,11 @@ public class Movingscript : MonoBehaviour
 
     void Roll()
     {
-        print("rolled");
+       
     }
     public void RollFinished()
     {
-        print("roll finished");
+        
         if (wepon == 0)
         {
             animator.SetBool("Roll", false);
@@ -457,7 +466,7 @@ public class Movingscript : MonoBehaviour
     }
     void Scream()
     {
-        print("Scream finished");
+
         
         if (wepon == 0)
         {
@@ -481,7 +490,6 @@ public class Movingscript : MonoBehaviour
 
     void Drink()
     {
-        print( state + "finished");
         if (wepon == 0)
         {
             animator.SetBool("Drink", false);

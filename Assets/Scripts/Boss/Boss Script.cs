@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class EnemyAiTutorial : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class EnemyAiTutorial : MonoBehaviour
     JumpS jump;
 
     Healthscripts healthscript;
+
+
+    public float bossHealth;
 
     private void Awake()
     {
@@ -28,6 +32,7 @@ public class EnemyAiTutorial : MonoBehaviour
     private void Update()
     {
         
+
     }
 
     public void Test()
@@ -36,7 +41,9 @@ public class EnemyAiTutorial : MonoBehaviour
     }
     public void DeadBoss()
     {
-        animator.SetTrigger("die");
+        False();
+        print("dead boss script");
+        animator.SetTrigger("deadBoss");
     }
     public void Jump()
     {
@@ -52,10 +59,10 @@ public class EnemyAiTutorial : MonoBehaviour
     }
     void winningScreen()
     {
-        enemySlider.deatoryedOnDeath();
+        SceneManager.LoadScene(1);
     }
 
-    void False()
+    public void False()
     {
         animator.SetBool("swing", false);
         animator.SetBool("stomp", false);

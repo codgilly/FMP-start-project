@@ -21,6 +21,10 @@ public class JumpS : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        boss.GetComponent<EnemyAiTutorial>().Jump();
+        if (other.gameObject.tag == "Player")
+        {
+            boss.GetComponent<EnemyAiTutorial>().Jump();
+        }
+            
     }
 }

@@ -22,6 +22,10 @@ public class StompS : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        boss.GetComponent<EnemyAiTutorial>().Stomp();
+        if (other.gameObject.tag == "Player")
+        {
+            boss.GetComponent<EnemyAiTutorial>().Stomp();
+        }
+           
     }
 }

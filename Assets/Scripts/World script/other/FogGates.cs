@@ -27,7 +27,7 @@ public class FogGates : MonoBehaviour
             HealthScreen.gameObject.SetActive(true);
         }
 
-        if (plyr.gameObject.tag == "boss")
+        if (plyr.gameObject.tag == "Boss")
         {
             transform.position = teleport.position;
         }
