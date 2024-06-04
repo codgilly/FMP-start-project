@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class Healthscripts : MonoBehaviour
+public class Healthscripts1 : MonoBehaviour
 {
     Movingscript movingscript;
     [SerializeField]
@@ -58,11 +58,9 @@ public class Healthscripts : MonoBehaviour
 
         if (health <= 0 && dead == 1)
         {
+            playerK.GetComponent<EnemyAiTutorial>().DeadBoss();
+            dead = 0;
 
-            //Dead();
-            movingscript.FalsePlayer();
-            movingscript.Dead();
-            print("dead1");
 
         }
     }
@@ -80,11 +78,6 @@ public class Healthscripts : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        amount -= movingscript.Defence;
-        if( amount < 0)
-        {
-            amount = 0;
-        }
         health -= amount;
         playerK.SetSlider(health);
     }

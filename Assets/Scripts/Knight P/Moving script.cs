@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -32,16 +33,19 @@ public class Movingscript : MonoBehaviour
 {
 
     Healthscripts healthscripts;
-
+    PlayerDamage playerDamage;
     States state;
     float Healedtimes = 5;
 
+    public float Defence;
 
     Animator animator;
 
     public GameObject dscreen;
 
     int wepon = 0;
+    int dead = 0;
+    int rest = 0;
     public Playercontroller input;
     private InputAction menu;
 
@@ -54,6 +58,16 @@ public class Movingscript : MonoBehaviour
     public GameObject healing;
 
     public GameObject Sword;
+    public GameObject hitbox;
+
+    [Header("Tutorial")]
+
+    public GameObject textMovement;
+
+
+    public GameObject restHitBox;
+
+    public string text1 = "press A";
 
     private void Awake()
     {
@@ -69,8 +83,9 @@ public class Movingscript : MonoBehaviour
     }
     void Start()
     {
-        animator = GetComponent<Animator>(); 
-
+        animator = GetComponent<Animator>();
+        textMovement.gameObject.GetComponent<TextMeshProUGUI>().text = ("use the left analog stick for movement " +
+       "use the right analog stick for the camera");
     }
 
     // Update is called once per frame
@@ -88,6 +103,8 @@ public class Movingscript : MonoBehaviour
         {
             Sword.gameObject.SetActive(true);
         }
+
+
     }
     void DoLogic()
     {
@@ -153,9 +170,7 @@ public class Movingscript : MonoBehaviour
                 Sheeth();
             break;
 
-            case States.hit:
-                Hit();
-            break;
+            
 
       
 
@@ -163,14 +178,17 @@ public class Movingscript : MonoBehaviour
         }
 
     }
+
+
+
     void IdleNA()
     {
         
         animator.SetBool("sheeth", false);
+       
 
-        
-        
-      
+
+
         if (GetStickMagnitude() > 0.1f)
         {
             animator.SetBool("walkingNA", true);
@@ -188,8 +206,7 @@ public class Movingscript : MonoBehaviour
         {
             state = States.Drink;
             animator.SetBool("Drink", true);
-            healing.GetComponent<Healthscripts>().Healing(40);
-            Healedtimes--;
+            
 
         }
         if (Input.GetKeyDown(KeyCode.JoystickButton4)) //Scream
@@ -219,6 +236,7 @@ public class Movingscript : MonoBehaviour
     void WalkNA()
     {
         //get v & h and get the magnitued of them, and .normalise 
+        textMovement.gameObject.GetComponent<TextMeshProUGUI>().text = ("Hold down B to run");
 
         Vector2 aim = Gamepad.current.leftStick.ReadValue();
         Vector3 direction = Quaternion.Euler(0, _followCamera.transform.eulerAngles.y, 0) * new Vector3(aim.x, 0, aim.y);
@@ -230,6 +248,7 @@ public class Movingscript : MonoBehaviour
             //Debug.Log("wohoo!!");
             //state = States.RunNA;
             animator.SetBool("RunningNA", true);
+           
         }
         if (Input.GetKeyUp(KeyCode.JoystickButton1))
         {
@@ -240,6 +259,8 @@ public class Movingscript : MonoBehaviour
 
         if (GetStickMagnitude() < 0.1f)
         {
+            textMovement.gameObject.GetComponent<TextMeshProUGUI>().text = ("Press Y to equip your sword");
+
             animator.SetBool("walkingNA", false);
             animator.SetBool("RunningNA", false);
             state = States.IdleNA;
@@ -249,8 +270,7 @@ public class Movingscript : MonoBehaviour
         {
             state = States.Drink;
             animator.SetBool("Drink", true);
-            healing.GetComponent<Healthscripts>().Healing(40);
-            Healedtimes--;
+            
 
         }
         if (Input.GetKeyDown(KeyCode.JoystickButton4)) //Scream
@@ -270,7 +290,7 @@ public class Movingscript : MonoBehaviour
     void Unsheeth()
     {
         wepon = 1;
-
+        textMovement.gameObject.GetComponent<TextMeshProUGUI>().text = ("press the right bumper to attack");
         state = States.IdelY;
         
     }
@@ -283,36 +303,41 @@ public class Movingscript : MonoBehaviour
 
     void IdleY()
     {
-
         animator.SetBool("IdelY", true);
 
         if (Input.GetKeyDown(KeyCode.JoystickButton5)) //light 
         {
             animator.SetBool("Light", true);
             //state = States.Light;
-            
+            textMovement.gameObject.GetComponent<TextMeshProUGUI>().text = ("Press B to roll");
+
         }
 
         if (Input.GetKeyDown(KeyCode.JoystickButton1)) //B
         {
-            state = States.Roll;
+            
             animator.SetBool("Roll", true);
             Roll();
+            textMovement.gameObject.GetComponent<TextMeshProUGUI>().text = ("Press X to heal " +
+                "but you can only heal 5 times so be careful");
+
         }
 
         if (Input.GetKeyDown(KeyCode.JoystickButton2) && Healedtimes >= 1) //X
         {
             state = States.Drink;
             animator.SetBool("Drink", true);
-            healing.GetComponent<Healthscripts>().Healing(40);
-            Healedtimes--;
+            textMovement.gameObject.GetComponent<TextMeshProUGUI>().text = ("Press left bumper to do more damage");
 
         }
 
         if (Input.GetKeyDown(KeyCode.JoystickButton4)) //Scream
         {
             state = States.Scream;
+            textMovement.gameObject.GetComponent<TextMeshProUGUI>().text = ("Press start to pause");
             animator.SetBool("Scream", true);
+            textMovement.gameObject.SetActive(false);
+
         }
 
         if (Input.GetKeyDown(KeyCode.JoystickButton3) && wepon == 1) //Y
@@ -326,7 +351,7 @@ public class Movingscript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.JoystickButton0)) //A
         {
-            animator.SetBool("Jump", true);
+            animator.SetBool("JumpAttack", true);
             state = States.Jump;
 
         }
@@ -335,7 +360,7 @@ public class Movingscript : MonoBehaviour
         {
             animator.SetBool("WalkY", true);
             state = States.WalkY;
-            
+           
         }
     }
 
@@ -351,6 +376,7 @@ public class Movingscript : MonoBehaviour
         {
             animator.SetBool("WalkY", false);
             state = States.IdelY;
+            textMovement.gameObject.SetActive(false);
         }
 
         if (Input.GetKeyDown(KeyCode.JoystickButton5)) //light 
@@ -363,7 +389,7 @@ public class Movingscript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.JoystickButton1)) //B
         {
-            state = States.Roll;
+            
             animator.SetBool("Roll", true);
             //Roll();
         }
@@ -372,8 +398,6 @@ public class Movingscript : MonoBehaviour
         {
             state = States.Drink;
             animator.SetBool("Drink", true);
-            healing.GetComponent<Healthscripts>().Healing(40);
-            Healedtimes--;
 
         }
 
@@ -386,7 +410,8 @@ public class Movingscript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.JoystickButton0)) //A
         {
-            animator.SetBool("Jump", true);
+            animator.SetBool("WalkY", false);
+            animator.SetBool("JumpAttack", true);
             state = States.Jump;
 
         }
@@ -405,13 +430,13 @@ public class Movingscript : MonoBehaviour
         }
         if (wepon == 0)
         {
-            animator.SetBool("Jump", false);
+            animator.SetBool("JumpAttack", false);
             state = States.IdleNA;
             //IdleNA();
         }
         if (wepon == 1)
         {
-            animator.SetBool("Jump", false);
+            animator.SetBool("JumpAttack", false);
             state = States.IdelY;
             //IdleY();
         }
@@ -423,6 +448,11 @@ public class Movingscript : MonoBehaviour
 
     }
 
+    void Healing()
+    {
+        healing.GetComponent<Healthscripts>().Healing(40);
+        Healedtimes--;
+    }
 
     public void BlockEnded()
     {
@@ -440,12 +470,14 @@ public class Movingscript : MonoBehaviour
         {
             animator.SetBool("Roll", false);
             state = States.IdleNA;
+            Defence = 0;
             //IdleNA();
         }
         if (wepon == 1)
         {
             animator.SetBool("Roll", false);
             state = States.IdelY;
+            Defence = 0;
             //IdleY();
         }
 
@@ -466,7 +498,7 @@ public class Movingscript : MonoBehaviour
     }
     void Scream()
     {
-
+        hitbox.GetComponent<PlayerDamage>().damage = 35;
         
         if (wepon == 0)
         {
@@ -488,7 +520,7 @@ public class Movingscript : MonoBehaviour
         state = States.IdelY;
     }
 
-    void Drink()
+    public void Drink()
     {
         if (wepon == 0)
         {
@@ -511,17 +543,64 @@ public class Movingscript : MonoBehaviour
         } 
             
     }
-    void Rest()
+    public void Rest()
     {
+        if(rest == 0)
+        {
+            animator.SetBool("Rest", true);
+            rest = 1;
+        }
+        
+        
+        if (Input.GetKeyDown(KeyCode.JoystickButton1))//B
+        {
+            rest = 0;
+            Healedtimes = 5;
+            animator.SetBool("Rest", false);
+            
+        }
 
     }
-    void Hit()
+
+    public void StopRest()
     {
-        //when hit
+       
+        
+            rest = 0;
+            Healedtimes = 5;
+            animator.SetBool("Rest", false);
+
+        
     }
+
+    public void FalsePlayer()
+    {
+        animator.SetBool("sheeth", true);
+        animator.SetBool("Drink", false);
+        animator.SetBool("Scream", false);
+        animator.SetBool("Light", false);
+        animator.SetBool("Roll", false);
+        animator.SetBool("WalkY", false);
+        animator.SetBool("walkingNA", false);
+        animator.SetBool("RunningNA", false);
+        animator.SetBool("IdelY", false);
+        animator.SetBool("Unsheeth", false);
+    }
+
+
     public void Dead()
     {
-        animator.SetBool("dead", true);
+        if(dead == 0)
+        {
+            animator.SetTrigger("dead");
+            dead = 1;
+        }
+       
+    }
+
+    public void DefenceRoll()
+    {
+        Defence = 10000;
     }
     void OnEndable()
     {
@@ -532,6 +611,7 @@ public class Movingscript : MonoBehaviour
 
         menu.performed += Pause;
     }
+
     public void DeathScreen()
     {
         dscreen.SetActive(true);
