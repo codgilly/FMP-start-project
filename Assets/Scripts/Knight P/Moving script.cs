@@ -60,6 +60,8 @@ public class Movingscript : MonoBehaviour
     public GameObject Sword;
     public GameObject hitbox;
 
+    public GameObject TextRest;
+
     [Header("Tutorial")]
 
     public GameObject textMovement;
@@ -545,6 +547,7 @@ public class Movingscript : MonoBehaviour
     }
     public void Rest()
     {
+
         if(rest == 0)
         {
             animator.SetBool("Rest", true);
@@ -559,7 +562,7 @@ public class Movingscript : MonoBehaviour
             animator.SetBool("Rest", false);
             
         }
-
+        TextRest.gameObject.GetComponent<RestSite>().textUpdate();
     }
 
     public void StopRest()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RestSite : MonoBehaviour
@@ -29,10 +30,17 @@ public class RestSite : MonoBehaviour
             Player.GetComponent<Movingscript>().Rest();
             if (Input.GetKeyDown(KeyCode.JoystickButton1))
             {
+                Text.gameObject.GetComponent<TextMeshProUGUI>().text = ("Press A to Rest");
                 Player.GetComponent<Movingscript>().StopRest();
             }
         }
     }
+
+    public void textUpdate()
+    {
+        Text.gameObject.GetComponent<TextMeshProUGUI>().text = ("Press B to leave");
+    }
+
 
     private void OnTriggerExit(Collider other)
     {
